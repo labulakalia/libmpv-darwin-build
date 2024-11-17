@@ -23,9 +23,9 @@ libass:
   url: https://github.com/libass/libass/releases/download/0.17.1/libass-0.17.1.tar.xz
   sha256: f0da0bbfba476c16ae3e1cfd862256d30915911f7abaa1b16ce62ee653192784
 libplacebo:
-  version: 7.349.0
-  url: https://github.com/haasn/libplacebo/archive/refs/tags/v7.349.0.tar.gz
-  sha256: 627e32439a0b3d2b90368ead7e919f470ee7446c87cc0f7841bbe319b23aa8b1
+  version: 20251128
+  url: https://github.com/medianexapp/libplacebo/archive/refs/tags/20251128.tar.gz
+  sha256: a1ae21521537f6a8cc20d2a512210b17b30dfbaa6da50ba9564578ea0c245ab2  
 fast_float:
   version: 5.2.0
   url: https://github.com/fastfloat/fast_float/archive/refs/tags/v5.2.0.tar.gz
@@ -71,9 +71,9 @@ mbedtls:
   url: https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v3.4.1.tar.gz
   sha256: a420fcf7103e54e775c383e3751729b8fb2dcd087f6165befd13f28315f754f5
 mpv:
-  version: 0.38.0
-  url: https://github.com/mpv-player/mpv/archive/21a0fa7abed80c3b1e2a9b1707e882d82795ac56.tar.gz
-  sha256: 959ab00d5576d5bf80654d53106ba25c927a5242db0a31f41086b6097e231df4
+  version: 0.39.0
+  url: https://github.com/mpv-player/mpv/archive/a0fba7be57f3822d967b04f0f6b6d6341e7516e7.tar.gz
+  sha256: f04f22cb1ef3bcf635dd14cabf23b2366a73bf7d53da22134fa4e819ab60ee24
 pkg-config:
   version: 0.29.2
   url: https://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
