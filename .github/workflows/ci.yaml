@@ -26,39 +26,24 @@ jobs:
       - name: Determine version
         id: version
         run: |
-          case "${GITHUB_REF}" in
-          refs/tags/*)
-            VERSION=${GITHUB_REF#refs/tags/}
-            ;;
-          *)
-            VERSION=develop
-            ;;
-          esac
-
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo ${VERSION}
+          echo "VERSION=${short_date}" >> $GITHUB_ENV
 
       - name: Build
-        # macOS runners have unknown resource limits (timeout or number of open
-        # files…) that prevent the execution of a single Makefile rule that
-        # manages all builds. So the time per rule must be limited.
         run: |
           export VERSION=${{ steps.version.outputs.version }}
           make all
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Create Github release
+        if: ${{ github.event.inputs.github_release == 'true'}}
+        uses: softprops/action-gh-release@v2
         with:
-          if-no-files-found: error
-          path: |
-            build/output/debug.zip
-            build/output/*.tar.gz
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          fail_on_unmatched_files: true
+          tag_name: ${{ env.VERSION }}
+          name: ${{ env.VERSION }}
+          body: |
+            **Workflow run**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           files: |
-            build/output/debug.zip
             build/output/*.tar.gz
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
