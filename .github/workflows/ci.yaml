@@ -26,11 +26,12 @@ jobs:
       - name: Determine version
         id: version
         run: |
+          short_date=$(date "+%Y%m%d")
           echo "VERSION=${short_date}" >> $GITHUB_ENV
 
       - name: Build
         run: |
-          export VERSION=${{ steps.version.outputs.version }}
+          export VERSION=${{ env.VERSION }}
           make all
 
       - name: Create Github release
