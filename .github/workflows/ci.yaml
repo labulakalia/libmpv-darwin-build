@@ -3,50 +3,50 @@ name: ci
 on: [push, pull_request]
 
 jobs:
-  build_macos:
-    name: build_macos
-    runs-on: macos-14
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+  # build_macos:
+  #   name: build_macos
+  #   runs-on: macos-14
+  #   permissions:
+  #     contents: write
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
 
-      - name: Install CMake
-        uses: ssrobins/install-cmake@v1
-        with:
-          version: 3.24.3
+  #     - name: Install CMake
+  #       uses: ssrobins/install-cmake@v1
+  #       with:
+  #         version: 3.24.3
 
-      - name: Install requirements
-        run: brew install go meson ninja nasm make
+  #     - name: Install requirements
+  #       run: brew install go meson ninja nasm make
 
-      - name: Print tool versions
-        run: gmake tool-versions
+  #     - name: Print tool versions
+  #       run: gmake tool-versions
 
-      - name: Determine version
-        id: version
-        run: |
-          short_date=$(date "+%Y%m%d")
-          echo "VERSION=${short_date}" >> $GITHUB_ENV
+  #     - name: Determine version
+  #       id: version
+  #       run: |
+  #         short_date=$(date "+%Y%m%d")
+  #         echo "VERSION=${short_date}" >> $GITHUB_ENV
 
-      - name: Build
-        run: |
-          export VERSION=${{ env.VERSION }}
-          make build_macos
+  #     - name: Build
+  #       run: |
+  #         export VERSION=${{ env.VERSION }}
+  #         make build_macos
 
-      - name: Create Github release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ env.VERSION }}
-          name: ${{ env.VERSION }}
-          body: |
-            **Workflow run**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          files: |
-            build/output/*.tar.gz
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Create Github release
+  #       uses: softprops/action-gh-release@v2
+  #       with:
+  #         tag_name: ${{ env.VERSION }}
+  #         name: ${{ env.VERSION }}
+  #         body: |
+  #           **Workflow run**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  #         files: |
+  #           build/output/*.tar.gz
+  #         draft: false
+  #         prerelease: false
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build_ios:
     name: build_ios
     runs-on: macos-14
