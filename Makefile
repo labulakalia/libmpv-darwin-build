@@ -45,7 +45,7 @@ OUTPUT_DIR = ${BUILD_DIR}/output
 DOWNLOADS_DIR = ${INTERMEDIATE_DIR}/downloads
 LINKS_DIR = ${INTERMEDIATE_DIR}/links
 PKGCONFIG_DIR = ${INTERMEDIATE_DIR}/pkg-config_${HOST_OS}-${HOST_ARCH}
-SANDBOX_PATH = ${PROJECT_DIR}/${LINKS_DIR}/bin:${PROJECT_DIR}/${PKGCONFIG_DIR}/bin:/bin:/usr/bin:/Applications/CMake.app/Contents/bin
+SANDBOX_PATH = ${PROJECT_DIR}/${LINKS_DIR}/bin:${PROJECT_DIR}/${PKGCONFIG_DIR}/bin:/bin:/usr/bin
 
 # chars
 NULL =
@@ -53,10 +53,15 @@ SPACE = $(NULL) # DONT REMOVE THIS COMMENT!!!
 COLON = :
 
 all: \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-amd64-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-arm64-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-universal-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_macos-universal-video-encodersgpl.tar.gz
+	${OUTPUT_DIR}/libmpv-libs_${VERSION}_ios-arm64-video-encodersgpl.tar.gz \
+    ${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-amd64-video-encodersgpl.tar.gz \
+    ${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-arm64-video-encodersgpl.tar.gz \
+    ${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-universal-video-encodersgpl.tar.gz \
+    ${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-amd64-video-encodersgpl.tar.gz \
+    ${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-arm64-video-encodersgpl.tar.gz \
+    ${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-universal-video-encodersgpl.tar.gz \
+    ${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_ios-universal-video-encodersgpl.tar.gz \
+    ${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_macos-universal-video-encodersgpl.tar.gz
 
 ${OUTPUT_DIR}/debug.zip: \
 	${INTERMEDIATE_DIR}/tool-versions.lock \
