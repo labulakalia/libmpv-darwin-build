@@ -1,7 +1,7 @@
 dav1d:
-  version: 1.2.1
-  url: https://code.videolan.org/videolan/dav1d/-/archive/1.2.1/dav1d-1.2.1.tar.bz2
-  sha256: a4003623cdc0109dec3aac8435520aa3fb12c4d69454fa227f2658cdb6dab5fa
+  version: 1.4.3
+  url: https://github.com/videolan/dav1d/archive/refs/tags/1.4.3.tar.gz
+  sha256: 88a023e58d955e0886faf49c72940e0e90914a948a8e60c1326ce3e09e7a6099
 ffmpeg:
   version: "7.0.2"
   url: https://ffmpeg.org/releases/ffmpeg-7.0.2.tar.xz
