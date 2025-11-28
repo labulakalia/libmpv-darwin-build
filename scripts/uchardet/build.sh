@@ -10,7 +10,7 @@ cp ${PROJECT_DIR}/scripts/uchardet/meson.build ./meson.build
 meson setup build_cross \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}"
-meson compile -C build_cross uchardet
+meson compile -C build_cross uchardet 
 
 # TODO: don't build twice, see what's done for mbetls
 # native build with cmake

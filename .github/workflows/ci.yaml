@@ -12,6 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Install CMake
+        uses: ssrobins/install-cmake@v1
+        with:
+          version: 3.24.3
+
       - name: Install requirements
         run: brew install go meson ninja nasm make
 
@@ -38,65 +43,11 @@ jobs:
         # files…) that prevent the execution of a single Makefile rule that
         # manages all builds. So the time per rule must be limited.
         run: |
-          VERSION=${{ steps.version.outputs.version }}
-          gmake build/output/libmpv-libs_${VERSION}_ios-arm64-audio-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_ios-arm64-audio-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_ios-arm64-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_ios-arm64-video-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_ios-arm64-video-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_ios-arm64-video-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-amd64-audio-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-amd64-audio-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-amd64-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-amd64-video-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-amd64-video-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-amd64-video-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-arm64-audio-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-arm64-audio-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-arm64-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-arm64-video-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-arm64-video-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-arm64-video-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-universal-audio-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-universal-audio-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-universal-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-universal-video-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-universal-video-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_iossimulator-universal-video-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-amd64-audio-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-amd64-audio-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-amd64-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-amd64-video-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-amd64-video-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-amd64-video-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-arm64-audio-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-arm64-audio-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-arm64-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-arm64-video-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-arm64-video-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-arm64-video-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-universal-audio-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-universal-audio-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-universal-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-universal-video-default.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-universal-video-full.tar.gz
-          gmake build/output/libmpv-libs_${VERSION}_macos-universal-video-encodersgpl.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_ios-universal-audio-default.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_ios-universal-audio-full.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_ios-universal-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_ios-universal-video-default.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_ios-universal-video-full.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_ios-universal-video-encodersgpl.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_macos-universal-audio-default.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_macos-universal-audio-full.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_macos-universal-audio-encodersgpl.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_macos-universal-video-default.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_macos-universal-video-full.tar.gz
-          gmake build/output/libmpv-xcframeworks_${VERSION}_macos-universal-video-encodersgpl.tar.gz
-          gmake build/output/debug.zip
+          export VERSION=${{ steps.version.outputs.version }}
+          make all
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
           path: |

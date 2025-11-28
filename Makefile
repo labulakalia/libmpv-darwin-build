@@ -45,7 +45,7 @@ OUTPUT_DIR = ${BUILD_DIR}/output
 DOWNLOADS_DIR = ${INTERMEDIATE_DIR}/downloads
 LINKS_DIR = ${INTERMEDIATE_DIR}/links
 PKGCONFIG_DIR = ${INTERMEDIATE_DIR}/pkg-config_${HOST_OS}-${HOST_ARCH}
-SANDBOX_PATH = ${PROJECT_DIR}/${LINKS_DIR}/bin:${PROJECT_DIR}/${PKGCONFIG_DIR}/bin:/bin:/usr/bin
+SANDBOX_PATH = ${PROJECT_DIR}/${LINKS_DIR}/bin:${PROJECT_DIR}/${PKGCONFIG_DIR}/bin:/bin:/usr/bin:/Applications/CMake.app/Contents/bin
 
 # chars
 NULL =
@@ -53,60 +53,9 @@ SPACE = $(NULL) # DONT REMOVE THIS COMMENT!!!
 COLON = :
 
 all: \
-	${OUTPUT_DIR}/debug.zip \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_ios-arm64-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_ios-arm64-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_ios-arm64-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_ios-arm64-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_ios-arm64-video-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_ios-arm64-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-amd64-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-amd64-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-amd64-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-amd64-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-amd64-video-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-amd64-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-arm64-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-arm64-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-arm64-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-arm64-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-arm64-video-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-arm64-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-universal-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-universal-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-universal-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-universal-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-universal-video-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_iossimulator-universal-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-amd64-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-amd64-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-amd64-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-amd64-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-amd64-video-full.tar.gz \
 	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-amd64-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-arm64-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-arm64-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-arm64-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-arm64-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-arm64-video-full.tar.gz \
 	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-arm64-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-universal-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-universal-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-universal-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-universal-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-universal-video-full.tar.gz \
 	${OUTPUT_DIR}/libmpv-libs_${VERSION}_macos-universal-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_ios-universal-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_ios-universal-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_ios-universal-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_ios-universal-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_ios-universal-video-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_ios-universal-video-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_macos-universal-audio-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_macos-universal-audio-full.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_macos-universal-audio-encodersgpl.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_macos-universal-video-default.tar.gz \
-	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_macos-universal-video-full.tar.gz \
 	${OUTPUT_DIR}/libmpv-xcframeworks_${VERSION}_macos-universal-video-encodersgpl.tar.gz
 
 ${OUTPUT_DIR}/debug.zip: \
@@ -169,7 +118,7 @@ ${DOWNLOADS_DIR}: \
 	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
 	$(eval TARGET_OUTPUT_DIR=${TARGET_TMP_DIR}/output)
 
-	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	# rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_OUTPUT_DIR}
 
 	go run cmd/downloads/main.go downloads.lock ${TARGET_OUTPUT_DIR}
@@ -612,7 +561,7 @@ ${INTERMEDIATE_DIR}/libass_%: \
 ${INTERMEDIATE_DIR}/libplacebo_%: \
 	${DOWNLOADS_DIR} \
 	${PKGCONFIG_DIR}
-
+	set -ex
 	@echo "\033[32mRULE\033[0m $@"
 
 	$(eval TARGET_DIR=$@)
@@ -623,7 +572,7 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
 	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
 	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
-
+	@echo ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*
 	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
 
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))

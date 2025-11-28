@@ -10,6 +10,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/media-kit/libmpv-darwin-build/pkg/lock"
 )
@@ -33,7 +34,15 @@ func main() {
 		destName := fmt.Sprintf("%s-%s%s", name, dep.Version, ext)
 		destPath := path.Join(destDir, destName)
 
-		log.Println(destPath)
+		err = check(destPath, dep.Sha256)
+		if err == nil {
+			log.Printf("file %s exist\n", destPath)
+			continue
+		} else {
+			log.Println(err)
+		}
+
+		log.Println("download ", dep.URL, "to", destPath)
 
 		err := download(dep.URL, tmpPath)
 		if err != nil {
@@ -84,7 +93,13 @@ func download(url, path string) error {
 		return fmt.Errorf("download: %w", err)
 	}
 
-	res, err := http.DefaultClient.Do(req)
+	client := http.Client{
+		Transport: &http.Transport{
+			Proxy: http.ProxyFromEnvironment,
+		},
+		Timeout: 60 * time.Second,
+	}
+	res, err := client.Do(req)
 	if err != nil {
 		return fmt.Errorf("download: %w", err)
 	}
