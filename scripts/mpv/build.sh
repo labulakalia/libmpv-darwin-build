@@ -18,7 +18,7 @@ DISABLE_ALL_OPTIONS=(
     -Dlibmpv=false `# libmpv library`
     -Dbuild-date=false `# whether to include binary compile time`
     -Dtests=false `# unit tests (development only)`
-    -Dta-leak-report=false `# enable ta leak report by default (development only)`
+    # -Dta-leak-report=false `# enable ta leak report by default (development only)` build fail on 0.40.0
 
     `# misc features`
     -Dcdda=disabled `# cdda support (libcdio)`
