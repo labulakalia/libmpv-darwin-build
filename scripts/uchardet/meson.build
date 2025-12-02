@@ -14,10 +14,15 @@ endif
 options = cmake.subproject_options()
 options.add_cmake_defines({
     'CMAKE_OSX_ARCHITECTURES': arch,
-    'CMAKE_OSX_SYSROOT': meson.get_cross_property('cmake_osx_sysroot'),
     'CMAKE_BUILD_TYPE': 'Release',
     'BUILD_STATIC': false,
 })
+
+if host_machine.system() == 'darwin'
+  options.add_cmake_defines({
+    'CMAKE_OSX_SYSROOT': meson.get_cross_property('cmake_osx_sysroot'),
+})
+endif
 
 uchardet = cmake.subproject('uchardet',
     options: options,
