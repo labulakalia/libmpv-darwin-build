@@ -25,9 +25,10 @@
 .SECONDEXPANSION:
 
 # Create any number of jobs, but keep the load average below ncpu
-MAKEFLAGS += "-j -l $(shell sysctl -n hw.ncpu) "
+MAKEFLAGS += "-j -l $(shell nproc) "
 
-HOST_OS = macos
+# TODO 
+HOST_OS = linux
 ifeq ($(shell uname -m), x86_64)
     HOST_ARCH = amd64
 else ifeq ($(shell uname -m), arm64)
@@ -51,6 +52,9 @@ SANDBOX_PATH = ${PROJECT_DIR}/${LINKS_DIR}/bin:${PROJECT_DIR}/${PKGCONFIG_DIR}/b
 NULL =
 SPACE = $(NULL) # DONT REMOVE THIS COMMENT!!!
 COLON = :
+
+build_linux: \
+    ${OUTPUT_DIR}/libmpv-libs_${VERSION}_linux-amd64-video-encodersgpl.tar.gz
 
 build_ios: \
 	${OUTPUT_DIR}/libmpv-libs_${VERSION}_ios-arm64-video-encodersgpl.tar.gz \
@@ -153,43 +157,47 @@ ${LINKS_DIR}:
 
 # pkg-config_<os>-<arch>
 ${INTERMEDIATE_DIR}/pkg-config_%: \
-	${DOWNLOADS_DIR} \
-	${LINKS_DIR}
+	# ${DOWNLOADS_DIR} \
+	# ${LINKS_DIR}
 
-	@echo "\033[32mRULE\033[0m $@"
+	# @echo "\033[32mRULE\033[0m $@"
 
-	$(eval TARGET_DIR=$@)
-	$(eval TARGET_PATTERN=$*)
-	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
-	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
-	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
-	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
-	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+	# $(eval TARGET_DIR=$@)
+	# $(eval TARGET_PATTERN=$*)
+	# @echo TARGET_PATTERN${TARGET_PATTERN}
+	# $(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	# $(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	# $(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	# $(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	# $(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
 
-	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+	# $(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
 
-	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
-	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+	# $(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	# $(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
-	mkdir -p ${TARGET_TMP_DIR}
+	# rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	# mkdir -p ${TARGET_TMP_DIR}
 
-	env -i \
-		PATH=${SANDBOX_PATH} \
-		ARCHIVE_FILE=${ARCHIVE_FILE} \
-		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+	# echo SANDBOX_PATH ${TARGET_OS}
+	# echo SANDBOX_PATH ${TARGET_ARCH}
+	# exit 0
+	# env -i \
+	# 	PATH=${SANDBOX_PATH} \
+	# 	ARCHIVE_FILE=${ARCHIVE_FILE} \
+	# 	TARGET_DIR=${TARGET_SRC_DIR} \
+	# 	sh ${PROJECT_DIR}/scripts/extract/build.sh
 	
-	env -i \
-		PATH=${SANDBOX_PATH} \
-		PROJECT_DIR=${PROJECT_DIR} \
-		OS=${TARGET_OS} \
-		ARCH=${TARGET_ARCH} \
-		SRC_DIR=${TARGET_SRC_DIR} \
-		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+	# env -i \
+	# 	PATH=${SANDBOX_PATH} \
+	# 	PROJECT_DIR=${PROJECT_DIR} \
+	# 	OS=${TARGET_OS} \
+	# 	ARCH=${TARGET_ARCH} \
+	# 	SRC_DIR=${TARGET_SRC_DIR} \
+	# 	OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+	# 	sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	rm -rf ${TARGET_TMP_DIR}
+	# rm -rf ${TARGET_TMP_DIR}
 
 # dav1d_<os>-<arch>
 ${INTERMEDIATE_DIR}/dav1d_%: \

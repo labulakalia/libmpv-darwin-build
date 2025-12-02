@@ -4,8 +4,8 @@ dav1d:
   sha256: 88a023e58d955e0886faf49c72940e0e90914a948a8e60c1326ce3e09e7a6099
 ffmpeg:
   version: "7.0.2"
-  url: https://ffmpeg.org/releases/ffmpeg-7.0.2.tar.xz
-  sha256: 8646515b638a3ad303e23af6a3587734447cb8fc0a0c064ecdb8e95c4fd8b389
+  url: https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n7.0.2.tar.gz
+  sha256: 5eb46d18d664a0ccadf7b0adee03bd3b7fa72893d667f36c69e202a807e6d533
 freetype:
   version: 2.13.2
   url: https://downloads.sourceforge.net/project/freetype/freetype2/2.13.2/freetype-2.13.2.tar.xz

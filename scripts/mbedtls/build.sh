@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e # exit immediately if a command exits with a non-zero status
+set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
@@ -21,10 +21,16 @@ mkdir -p dist/lib/pkgconfig
 cp -R subprojects/mbedtls/include/mbedtls/*.h dist/include/mbedtls
 cp -R subprojects/mbedtls/include/psa/*.h dist/include/psa
 ## install libs
-find . -type f -name '*.dylib' -exec sh -c 'mv {} dist/lib' \;
+if [[ $OS == "macos" ]];then
+    find . -type f -name '*.dylib' -exec sh -c 'mv {} dist/lib' \;
+elif [[ $OS == "linux" ]];then
+    find . -type f -name '*.so' -exec sh -c 'mv {} dist/lib' \;
+fi
+
 ## install pkgconfig file
 cp ${PROJECT_DIR}/scripts/mbedtls/mbedtls.pc.in dist/lib/pkgconfig/mbedtls.pc
-sed -i '' 's|${PREFIX}|'${OUTPUT_DIR}'|g' dist/lib/pkgconfig/mbedtls.pc
+cat dist/lib/pkgconfig/mbedtls.pc
+sed -i 's|${PREFIX}|'${OUTPUT_DIR}'|g' dist/lib/pkgconfig/mbedtls.pc
 
 # manual install
 mkdir -p "${OUTPUT_DIR}"
