@@ -62,13 +62,11 @@ common_options = [
 
 audio_common_options = [
     '--enable-zlib', # rasc support
-    '--enable-audiotoolbox',
 ]
 
 video_common_options = [
     '--enable-neon', # improve hevc (h265) support on arm
     '--enable-libxml2', # dash support
-    '--enable-videotoolbox',
     '--enable-libdav1d', # av1 support
 ]
 
