@@ -16,6 +16,7 @@ options.add_cmake_defines({
     'CMAKE_OSX_ARCHITECTURES': arch,
     'CMAKE_BUILD_TYPE': 'Release',
     'BUILD_STATIC': false,
+    'CMAKE_POLICY_VERSION_MINIMUM': '3.5'
 })
 
 if host_machine.system() == 'darwin'

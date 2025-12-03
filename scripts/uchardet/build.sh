@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e # exit immediately if a command exits with a non-zero status
+set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
@@ -17,9 +17,10 @@ meson compile -C build_cross uchardet
 cmake ./subprojects/uchardet \
     -B build_native \
     -DCMAKE_INSTALL_PREFIX="${OUTPUT_DIR}" \
-    -DBUILD_STATIC=OFF
+    -DBUILD_STATIC=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -C build_native
 DESTDIR=$PWD/dist make -C build_native install
+pwd
 
 # remove unecessary files
 rm -rf "dist/${OUTPUT_DIR}/bin"
@@ -27,12 +28,15 @@ rm -rf "dist/${OUTPUT_DIR}/lib/cmake"
 rm -rf "dist/${OUTPUT_DIR}/share"
 
 # get dylib id
-DYLIB_FILE=$(find "dist${OUTPUT_DIR}/lib" -type f -name '*.dylib')
-DYLIB_ID=$(otool -l "$DYLIB_FILE" | grep ' name ' | cut -d ' ' -f 11 | head -n +1)
+if [[ ${OS} == "macos" ]];then
+    DYLIB_FILE=$(find "dist${OUTPUT_DIR}/lib" -type f -name '*.dylib')
+    DYLIB_ID=$(otool -l "$DYLIB_FILE" | grep ' name ' | cut -d ' ' -f 11 | head -n +1)
+    
+    # replace native dylib by cross dylib & update id
+    cp 'build_cross/subprojects/uchardet/liblibuchardet.dylib' "$DYLIB_FILE"
+    install_name_tool -id "$DYLIB_ID" "$DYLIB_FILE"
+fi
 
-# replace native dylib by cross dylib & update id
-cp 'build_cross/subprojects/uchardet/liblibuchardet.dylib' "$DYLIB_FILE"
-install_name_tool -id "$DYLIB_ID" "$DYLIB_FILE"
 
 # manual install to preserve symlinks
 mkdir -p "${OUTPUT_DIR}"

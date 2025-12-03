@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e # exit immediately if a command exits with a non-zero status
+set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
@@ -17,8 +17,9 @@ mv ./3rdparty/glad-2.0.4 ./3rdparty/glad
 tar -xzvf "${DOWNLOADS_DIR}/jinja-3.1.2.tar.gz" -C ./3rdparty/
 mv ./3rdparty/jinja-3.1.2 ./3rdparty/jinja
 
-tar -xzvf "${DOWNLOADS_DIR}/markupsafe-2.1.2.tar.gz" -C ./3rdparty/
-mv ./3rdparty/markupsafe-2.1.2 ./3rdparty/markupsafe
+
+tar -xzf "${DOWNLOADS_DIR}/markupsafe-2.1.2.tar.gz" -C ./3rdparty/
+mv ./3rdparty/MarkupSafe-2.1.2 ./3rdparty/markupsafe
 
 tar -xzvf "${DOWNLOADS_DIR}/Vulkan-Headers-1.3.243.tar.gz" -C ./3rdparty/
 mv ./3rdparty/Vulkan-Headers-1.3.243 ./3rdparty/Vulkan-Headers

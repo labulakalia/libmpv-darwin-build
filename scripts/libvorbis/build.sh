@@ -1,14 +1,15 @@
 #!/bin/bash
 
-set -e # exit immediately if a command exits with a non-zero status
+set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
 
 patch -p1 <${PROJECT_DIR}/patches/ltmain-target-passthrough.patch
 
+echo $SRC_DIR
 # Fix building on modern macOS
-sed -i '' 's/\-force_cpusubtype_ALL//g' configure
+sed -i 's/\-force_cpusubtype_ALL//g' configure
 
 cp ${PROJECT_DIR}/scripts/libvorbis/meson.* .
 
