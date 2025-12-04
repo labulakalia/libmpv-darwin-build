@@ -55,9 +55,9 @@ libvorbis:
   url: https://github.com/xiph/vorbis/releases/download/v1.3.7/libvorbis-1.3.7.tar.gz
   sha256: 0e982409a9c3fc82ee06e08205b1355e5c6aa4c36bca58146ef399621b0ce5ab
 libvpx:
-  version: 1.13.0+1
-  url: https://gitlab.freedesktop.org/gstreamer/meson-ports/libvpx/-/archive/90d26fac0d895969a82cd873ad36e39737104c44/libvpx-v1.13.0.tar.gz
-  sha256: 4f872ad2709d17b848b3588231495e432c42b9263731b9121fa210a3c5a893ff
+  version: 1.15.2-1
+  url: https://github.com/labulakalia/libvpx/archive/refs/tags/v1.15.2-1.tar.gz
+  sha256: df9adde77a4a2d4fa6913341822722ab26127ab986ccbbeaa1923bab13d3e9a6  
 libx264:
   version: "a8b68ebf"
   url: https://code.videolan.org/videolan/x264/-/archive/a8b68ebfaa68621b5ac8907610d3335971839d52/libx264-a8b68ebfaa68621b5ac8907610d3335971839d52.tar.gz

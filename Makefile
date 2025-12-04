@@ -119,7 +119,7 @@ ${INTERMEDIATE_DIR}/tool-versions.lock:
 
 ${DOWNLOADS_DIR}: \
 	downloads.lock
-
+	
 	@echo "\033[32mRULE\033[0m $@"
 
 	mkdir -p ${INTERMEDIATE_DIR}
@@ -833,7 +833,8 @@ ${INTERMEDIATE_DIR}/libvorbis_%: \
 # libvpx_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libvpx_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+ 	${PKGCONFIG_DIR}
+
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -859,7 +860,7 @@ ${INTERMEDIATE_DIR}/libvpx_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
