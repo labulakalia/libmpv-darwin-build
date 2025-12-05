@@ -9,7 +9,7 @@ c_args = get_option('c_args')
 p = mod.add_project('configure',
     configure_options : [
         '--prefix=@PREFIX@',
-        '--enable-shared',
+        '--enable-static',
         '--disable-cli'
     ],
     env: {

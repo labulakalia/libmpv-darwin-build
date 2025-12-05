@@ -14,8 +14,8 @@ endif
 options = cmake.subproject_options()
 options.add_cmake_defines({
     'CMAKE_OSX_ARCHITECTURES': arch,
-    'USE_STATIC_MBEDTLS_LIBRARY': false,
-    'USE_SHARED_MBEDTLS_LIBRARY': true,
+    'USE_STATIC_MBEDTLS_LIBRARY': true,
+    'USE_SHARED_MBEDTLS_LIBRARY': false,
     'LINK_WITH_PTHREAD': true,
 })
 if host_machine.system() == 'darwin'
