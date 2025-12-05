@@ -24,7 +24,7 @@ cp -R subprojects/mbedtls/include/psa/*.h dist/include/psa
 if [[ $OS == "macos" ]];then
     find . -type f -name '*.dylib' -exec sh -c 'mv {} dist/lib' \;
 elif [[ $OS == "linux" ]];then
-    find . -type f -name '*.so' -exec sh -c 'mv {} dist/lib' \;
+    find . -type f -name '*.a' -exec sh -c 'mv {} dist/lib' \;
 fi
 
 ## install pkgconfig file
