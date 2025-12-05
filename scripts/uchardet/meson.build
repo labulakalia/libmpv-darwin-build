@@ -15,7 +15,7 @@ options = cmake.subproject_options()
 options.add_cmake_defines({
     'CMAKE_OSX_ARCHITECTURES': arch,
     'CMAKE_BUILD_TYPE': 'Release',
-    'BUILD_STATIC': false,
+    'BUILD_STATIC': true,
     'CMAKE_POLICY_VERSION_MINIMUM': '3.5'
 })
 

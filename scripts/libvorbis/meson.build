@@ -7,8 +7,8 @@ mod = import('unstable-external_project')
 p = mod.add_project('configure',
     configure_options : [
         '--prefix=@PREFIX@',
-        '--disable-static',
-        '--enable-shared',
+        '--disable-shared',
+        '--enable-static',
         '--disable-tests'
     ],
     verbose: true,

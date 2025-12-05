@@ -42,7 +42,7 @@ common_options = [
     '--prefix=@PREFIX@',
     '--enable-small', # reduce libs size
     '--enable-optimizations',
-    '--enable-shared',
+    '--enable-static',
     '--enable-network',
     '--enable-pthreads',
     '--enable-pic',

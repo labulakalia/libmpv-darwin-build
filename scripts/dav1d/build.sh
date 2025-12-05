@@ -19,6 +19,7 @@ meson setup build \
     -Dfuzzer_ldflags= \
     -Dstack_alignment=0 \
     -Dxxhash_muxer=auto \
-    -Dtrim_dsp=if-release
+    -Dtrim_dsp=if-release \
+    -Ddefault_library=static
 meson compile -C build
 meson install -C build

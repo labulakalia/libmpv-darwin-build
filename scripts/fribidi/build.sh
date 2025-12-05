@@ -11,6 +11,7 @@ meson setup build \
     -Ddocs=false \
     -Dbin=false \
     -Dtests=false \
-    -Dfuzzer_ldflags=
+    -Dfuzzer_ldflags= \
+    -Ddefault_library=static
 meson compile -C build
 meson install -C build
