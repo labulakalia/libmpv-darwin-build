@@ -6,7 +6,7 @@ mod = import('unstable-external_project')
 
 configure_options = [
     '--prefix=@PREFIX@',
-    '--disable-static',
+    '--enable-static',
     '--enable-fast-install',
     '--disable-dependency-tracking',
     '--disable-test',

@@ -13,7 +13,7 @@ sed -i 's/\-arch arm64//g' configure
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}" \
-    -Ddefault_library=shared |
+    -Ddefault_library=static |
     tee configure.log
 
 meson compile -C build libx264

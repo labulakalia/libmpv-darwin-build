@@ -132,9 +132,9 @@ ${DOWNLOADS_DIR}: \
 	# # # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_OUTPUT_DIR}
 
-	go run cmd/downloads/main.go downloads.lock ${TARGET_OUTPUT_DIR}
+	go run cmd/downloads/main.go downloads.lock ${TARGET_DIR}
 
-	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
+	# mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
 	# rm -rf ${TARGET_TMP_DIR}
 
 ${LINKS_DIR}:
@@ -832,8 +832,7 @@ ${INTERMEDIATE_DIR}/libvorbis_%: \
 
 # libvpx_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libvpx_%: \
-	${DOWNLOADS_DIR} \
- 	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR}
 
 
 	@echo "\033[32mRULE\033[0m $@"
@@ -846,7 +845,7 @@ ${INTERMEDIATE_DIR}/libvpx_%: \
 	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
 	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
 	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
-
+	@echo ${DOWNLOADS_DIR}/${TARGET_PKGNAME}
 	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
 
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))

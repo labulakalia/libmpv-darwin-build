@@ -25,6 +25,7 @@ meson setup build \
     -Dicu_builtin=false \
     -Dexperimental_api=false \
     -Dragel_subproject=false \
+    --default-library=static \
     -Dfuzzer_ldflags=
 meson compile -C build
 meson install -C build
