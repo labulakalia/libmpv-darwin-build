@@ -6,5 +6,5 @@ libdir="${prefix}/lib"
 Name: mbedtls
 Description: cryptographic library
 Version: unknown
-Libs: -L"${libdir}" -lmbedtls -lmbedcrypto -lmbedx509
+Libs: -L"${libdir}" -lmbedtls -lmbedx509 -lmbedcrypto
 Cflags: -I"${includedir}"

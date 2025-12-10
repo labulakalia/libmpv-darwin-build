@@ -71,9 +71,9 @@ libxml2:
   url: https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.1.tar.xz
   sha256: c008bac08fd5c7b4a87f7b8a71f283fa581d80d80ff8d2efd3b26224c39bc54c
 mbedtls:
-  version: 3.4.1
-  url: https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v3.4.1.tar.gz
-  sha256: a420fcf7103e54e775c383e3751729b8fb2dcd087f6165befd13f28315f754f5
+  version: 3.6.4
+  url: https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-3.6.4/mbedtls-3.6.4.tar.bz2
+  sha256: ec35b18a6c593cf98c3e30db8b98ff93e8940a8c4e690e66b41dfc011d678110
 mpv:
   version: 0.40.0
   url: https://github.com/mpv-player/mpv/archive/refs/tags/v0.40.0.tar.gz
