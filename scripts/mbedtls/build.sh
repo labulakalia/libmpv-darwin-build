@@ -10,26 +10,25 @@ cp ${PROJECT_DIR}/scripts/mbedtls/meson.build ./meson.build
 meson setup build_cross \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}"
-meson compile -C build_cross mbedtls
-
+meson compile -C build_cross mbedtls mbedx509 mbedcrypto
+ 
 # manually create output
 ## create output layout
-mkdir -p dist/{include,lib}
-mkdir -p dist/include/{mbedtls,psa}
+mkdir -p dist/include dist/lib
+mkdir -p dist/include/mbedtls dist/include/psa
 mkdir -p dist/lib/pkgconfig
 ## install headers
 cp -R subprojects/mbedtls/include/mbedtls/*.h dist/include/mbedtls
 cp -R subprojects/mbedtls/include/psa/*.h dist/include/psa
 ## install libs
-if [[ $OS == "macos" ]];then
-    find . -type f -name '*.dylib' -exec sh -c 'mv {} dist/lib' \;
-elif [[ $OS == "linux" ]];then
-    find . -type f -name '*.a' -exec sh -c 'mv {} dist/lib' \;
-fi
+
+find . -type f -name '*.dylib' -exec sh -c 'mv {} dist/lib' \;
+find . -type f -name '*.a' -exec sh -c 'mv {} dist/lib' \;
+
 
 ## install pkgconfig file
 cp ${PROJECT_DIR}/scripts/mbedtls/mbedtls.pc.in dist/lib/pkgconfig/mbedtls.pc
-cat dist/lib/pkgconfig/mbedtls.pc
+
 sed -i 's|${PREFIX}|'${OUTPUT_DIR}'|g' dist/lib/pkgconfig/mbedtls.pc
 
 # manual install

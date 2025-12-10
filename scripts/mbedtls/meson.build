@@ -17,6 +17,7 @@ options.add_cmake_defines({
     'USE_STATIC_MBEDTLS_LIBRARY': true,
     'USE_SHARED_MBEDTLS_LIBRARY': false,
     'LINK_WITH_PTHREAD': true,
+    'CMAKE_BUILD_TYPE': 'Release',
 })
 if host_machine.system() == 'darwin'
   options.add_cmake_defines({
@@ -30,3 +31,11 @@ mbedtls = cmake.subproject('mbedtls',
 
 mbedtls_dep = mbedtls.dependency('mbedtls')
 meson.override_dependency('mbedtls', mbedtls_dep)
+
+
+mbedcrypto_dep = mbedtls.dependency('mbedcrypto')
+meson.override_dependency('mbedcrypto', mbedcrypto_dep)
+
+
+mbedx509_dep = mbedtls.dependency('mbedx509')
+meson.override_dependency('mbedx509', mbedx509_dep)

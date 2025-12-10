@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e # exit immediately if a command exits with a non-zero status
+set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
@@ -8,6 +8,8 @@ cd ${SRC_DIR}
 patch -p1 <${PROJECT_DIR}/patches/ltmain-target-passthrough.patch
 
 cp ${PROJECT_DIR}/scripts/libxml2/meson.build ./meson.build
+cp ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini .
+
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}"

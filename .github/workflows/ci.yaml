@@ -109,7 +109,7 @@ jobs:
           version: 3.24.3
 
       - name: Install requirements
-        run: apt install go meson ninja nasm make libfontconfig-dev
+        run: apt install go ninja nasm make libfontconfig-dev libdrm-dev libxv-dev libva-dev libvdpau-dev && pip3 install meson
 
       - name: Print tool versions
         run: gmake tool-versions

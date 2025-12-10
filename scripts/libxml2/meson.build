@@ -3,7 +3,8 @@
 project('libxml2', 'c')
 
 mod = import('unstable-external_project')
-
+host_triplet = build_machine.system()
+message('Using host triplet: ' + host_triplet)
 p = mod.add_project('configure',
     configure_options : [
         '--prefix=@PREFIX@',
@@ -11,7 +12,7 @@ p = mod.add_project('configure',
         '--enable-static',
         '--disable-dependency-tracking',
         '--disable-silent-rules',
-        '--without-python'
+        '--without-python',
     ],
     verbose: true,
 )

@@ -128,14 +128,10 @@ ${DOWNLOADS_DIR}: \
 	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
 	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
 	$(eval TARGET_OUTPUT_DIR=${TARGET_TMP_DIR}/output)
-
-	# # # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
-	mkdir -p ${TARGET_OUTPUT_DIR}
+	mkdir -p ${TARGET_DIR}
 
 	go run cmd/downloads/main.go downloads.lock ${TARGET_DIR}
 
-	# mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
-	# rm -rf ${TARGET_TMP_DIR}
 
 ${LINKS_DIR}:
 	@echo "\033[32mRULE\033[0m $@"
@@ -259,7 +255,7 @@ ${INTERMEDIATE_DIR}/mbedtls_%: \
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
 	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	## rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -323,20 +319,14 @@ ${INTERMEDIATE_DIR}/libxml2_%: \
 ${INTERMEDIATE_DIR}/ffmpeg_%: \
 	${DOWNLOADS_DIR} \
 	${PKGCONFIG_DIR} \
+	${INTERMEDIATE_DIR}/libx264_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/mbedtls_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	$$(if $$(filter encodersgpl, $$(word 4,$$(subst -, ,$$*))), \
-		${INTERMEDIATE_DIR}/libvorbis_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-		${INTERMEDIATE_DIR}/libogg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	) \
-	$$(if $$(filter video, $$(word 3,$$(subst -, ,$$*))), \
-		${INTERMEDIATE_DIR}/dav1d_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-		${INTERMEDIATE_DIR}/libxml2_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-		$$(if $$(filter encodersgpl, $$(word 4,$$(subst -, ,$$*))), \
-			${INTERMEDIATE_DIR}/libvpx_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-			${INTERMEDIATE_DIR}/libx264_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-		) \
-	)
-
+	${INTERMEDIATE_DIR}/libvorbis_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libogg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/dav1d_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libxml2_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libvpx_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	
 	@echo "\033[32mRULE\033[0m $@"
 
 	$(eval TARGET_DIR=$@)
@@ -362,8 +352,7 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
-	mkdir -p ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_DIR}
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -730,7 +719,7 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 # libogg_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libogg_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${PKGCONFIG_DIR} \
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -782,7 +771,7 @@ ${INTERMEDIATE_DIR}/libogg_%: \
 ${INTERMEDIATE_DIR}/libvorbis_%: \
 	${DOWNLOADS_DIR} \
 	${PKGCONFIG_DIR} \
-	${INTERMEDIATE_DIR}/libogg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))
+	${INTERMEDIATE_DIR}/libogg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -828,7 +817,7 @@ ${INTERMEDIATE_DIR}/libvorbis_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	rm -rf x${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 # libvpx_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libvpx_%: \
@@ -910,8 +899,8 @@ ${INTERMEDIATE_DIR}/libx264_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
-	mkdir -p ${TARGET_TMP_DIR}
+	rm -rf  ${TARGET_DIR}
+	mkdir -p ${TARGET_DIR}
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -930,7 +919,7 @@ ${INTERMEDIATE_DIR}/libx264_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+	
 
 # libs-arch_<os>-<arch>-<variant>-<flavor>
 ${INTERMEDIATE_DIR}/libs-arch_%: \

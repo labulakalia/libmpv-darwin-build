@@ -149,25 +149,22 @@ MACOS_OPTIONS=(
 
     `# video output features`
     -Dcocoa=enabled `# Cocoa` `# BUG: required in audio mode since v0.36.0`
-)
-
-MACOS_VIDEO_OPTIONS=(
-    `# video output features`
+        `# video output features`
     -Dgl-cocoa=enabled `# gl-cocoa`
 
     `# hwaccel features`
     -Dvideotoolbox-gl=enabled `# Videotoolbox with OpenGL`
 )
 
+
+
 IOS_OPTIONS=(
     `# audio output features`
     -Daudiounit=enabled `# AudioUnit output for iOS`
-)
-
-IOS_VIDEO_OPTIONS=(
-    `# hwaccel features`
+       `# hwaccel features`
     -Dios-gl=enabled `# iOS OpenGL ES hardware decoding interop support`
 )
+
 
 OPTIONS=("${DISABLE_ALL_OPTIONS[@]}")
 
@@ -178,14 +175,9 @@ fi
 
 if [ "${OS}" == "macos" ]; then
     OPTIONS+=("${MACOS_OPTIONS[@]}")
-    if [ "${VARIANT}" == "video" ]; then
-        OPTIONS+=("${MACOS_VIDEO_OPTIONS[@]}")
-    fi
 elif [ "${OS}" == "ios" ]; then
     OPTIONS+=("${IOS_OPTIONS[@]}")
-    if [ "${VARIANT}" == "video" ]; then
-        OPTIONS+=("${IOS_VIDEO_OPTIONS[@]}")
-    fi
+elif [ "${OS}" == "ios" ]; then
 fi
 
 meson setup build \
