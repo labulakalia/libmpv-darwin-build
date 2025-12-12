@@ -62,7 +62,7 @@ libx264:
   version: "a8b68ebf"
   url: https://code.videolan.org/videolan/x264/-/archive/a8b68ebfaa68621b5ac8907610d3335971839d52/libx264-a8b68ebfaa68621b5ac8907610d3335971839d52.tar.gz
   sha256: 164688b63f11a6e4f6d945057fc5c57d5eefb97973d0029fb0303744e10839ff
-lib265:
+libx265:
   version: "9e551a99"
   url: https://bitbucket.org/multicoreware/x265_git/get/9e551a994f970a24f0e49bcebe3d43ef08448b01.tar.gz
   sha256: e238c451af2c868d40dfcde007fd404767ae16f171341c32b231c8c0869173f5

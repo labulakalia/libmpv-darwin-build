@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
@@ -16,7 +16,8 @@ meson compile -C build_cross uchardet
 # native build with cmake
 cmake ./subprojects/uchardet \
     -B build_native \
-    -DCMAKE_INSTALL_PREFIX="${OUTPUT_DIR}"
+    -DCMAKE_INSTALL_PREFIX="${OUTPUT_DIR}" \
+    -DBUILD_BINARY=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC=ON -DCMAKE_BUILD_TYPE=Release
 make -C build_native
 DESTDIR=$PWD/dist make -C build_native install
 
@@ -24,6 +25,7 @@ DESTDIR=$PWD/dist make -C build_native install
 # remove unecessary files
 rm -rf "dist/${OUTPUT_DIR}/bin"
 rm -rf "dist/${OUTPUT_DIR}/lib/cmake"
+# rm -rf "dist/${OUTPUT_DIR}/lib/libuchardet.so*"
 rm -rf "dist/${OUTPUT_DIR}/share"
 
 # get dylib id
