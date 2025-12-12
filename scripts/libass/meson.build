@@ -7,6 +7,7 @@ mod = import('unstable-external_project')
 configure_options = [
     '--prefix=@PREFIX@',
     '--enable-static',
+    '--enable-shared=no',
     '--enable-fast-install',
     '--disable-dependency-tracking',
     '--disable-test',
@@ -14,7 +15,6 @@ configure_options = [
     '--disable-profile',
     '--disable-fuzz',
     '--disable-directwrite',
-    # 核心修改：根据系统动态设置
     '--disable-libunibreak',
     '--disable-require-system-font-provider',
     '--disable-asm',

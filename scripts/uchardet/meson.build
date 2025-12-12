@@ -15,9 +15,10 @@ options = cmake.subproject_options()
 options.add_cmake_defines({
     'CMAKE_OSX_ARCHITECTURES': arch,
     'CMAKE_BUILD_TYPE': 'Release',
-    'BUILD_SHARED_LIBS': 'OFF',
-    'BUILD_STATIC': 'ON',
-    'CMAKE_POLICY_VERSION_MINIMUM': '3.5'
+    'CMAKE_POLICY_VERSION_MINIMUM': '3.5',
+    'BUILD_BINARY': 'ON',
+    'BUILD_SHARED_LIBS':'OFF',
+    'BUILD_STATIC': 'ON'
 })
 
 if host_machine.system() == 'darwin'

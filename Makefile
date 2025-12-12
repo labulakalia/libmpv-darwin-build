@@ -641,7 +641,7 @@ ${INTERMEDIATE_DIR}/uchardet_%: \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 # mpv_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/mpv_%: \
