@@ -5,15 +5,12 @@ set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
 
-# patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-vp9-hwaccel.patch
-# patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-hls-mp4-seek.patch
-# patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-ios-hdr-texture.patch
-# patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-dash-base-url-escape.patch
+patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-vp9-hwaccel.patch
+patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-hls-mp4-seek.patch
+patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-ios-hdr-texture.patch
+patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-dash-base-url-escape.patch
 
 cp ${PROJECT_DIR}/scripts/ffmpeg/meson.* .
-# echo $PKG_CONFIG_PATH
-# pkg-config libxml-2.0
-/bin/pkg-config --cflags --libs libxml-2.0
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}" \

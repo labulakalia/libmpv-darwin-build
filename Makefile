@@ -24,6 +24,8 @@
 # Enable secondary expansions, needed for var substitution in rules's deps
 .SECONDEXPANSION:
 
+.SECONDARY:
+
 # Create any number of jobs, but keep the load average below ncpu
 MAKEFLAGS += "-j -l $(shell nproc) "
 
@@ -97,7 +99,7 @@ ${OUTPUT_DIR}/debug.zip: \
 
 	$(eval TARGET_ABS_DEPS=$(foreach DEP,${TARGET_DEPS},${PROJECT_DIR}/${DEP}))
 
-	# rm -rf ${TARGET_TMP_DIR} ${TARGET_FILE}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_FILE}
 	mkdir -p ${OUTPUT_DIR} ${TARGET_SRC_DIR}
 
 	env -i \
@@ -109,7 +111,7 @@ ${OUTPUT_DIR}/debug.zip: \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 	
 	mv ${TARGET_OUTPUT_FILE} ${TARGET_FILE}
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 ${INTERMEDIATE_DIR}/tool-versions.lock:
 	@echo "\033[32mRULE\033[0m $@"
@@ -118,7 +120,7 @@ ${INTERMEDIATE_DIR}/tool-versions.lock:
 	go run cmd/tool-versions/main.go > $@
 
 ${DOWNLOADS_DIR}: \
-	downloads.lock
+	downloads.lock \
 	
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -154,7 +156,7 @@ ${LINKS_DIR}:
 # pkg-config_<os>-<arch>
 ${INTERMEDIATE_DIR}/pkg-config_%: \
 	${DOWNLOADS_DIR} \
-	${LINKS_DIR}
+	${LINKS_DIR} \
 
 	# @echo "\033[32mRULE\033[0m $@"
 
@@ -172,7 +174,7 @@ ${INTERMEDIATE_DIR}/pkg-config_%: \
 	# $(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
 	# $(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	# # # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	# mkdir -p ${TARGET_TMP_DIR}
 
 	# echo SANDBOX_PATH ${TARGET_OS}
@@ -193,7 +195,7 @@ ${INTERMEDIATE_DIR}/pkg-config_%: \
 	# 	OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 	# 	sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+# 	rm -rf ${TARGET_TMP_DIR}
 
 # dav1d_<os>-<arch>
 ${INTERMEDIATE_DIR}/dav1d_%: \
@@ -215,7 +217,7 @@ ${INTERMEDIATE_DIR}/dav1d_%: \
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
 	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -233,7 +235,7 @@ ${INTERMEDIATE_DIR}/dav1d_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 # mbedtls_<os>-<arch>
 ${INTERMEDIATE_DIR}/mbedtls_%: \
@@ -255,7 +257,7 @@ ${INTERMEDIATE_DIR}/mbedtls_%: \
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
 	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	## rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	#rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -273,12 +275,12 @@ ${INTERMEDIATE_DIR}/mbedtls_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 # libxml2_<os>-<arch>
 ${INTERMEDIATE_DIR}/libxml2_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${PKGCONFIG_DIR} \
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -295,7 +297,7 @@ ${INTERMEDIATE_DIR}/libxml2_%: \
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
 	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -313,7 +315,7 @@ ${INTERMEDIATE_DIR}/libxml2_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 # ffmpeg_<os>-<arch>-<variant>-<flavor>
 ${INTERMEDIATE_DIR}/ffmpeg_%: \
@@ -352,7 +354,6 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	rm -rf ${TARGET_DIR}
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -372,7 +373,6 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# # rm -rf ${TARGET_TMP_DIR}
 
 # harfbuzz_<os>-<arch>
 ${INTERMEDIATE_DIR}/harfbuzz_%: \
@@ -394,7 +394,6 @@ ${INTERMEDIATE_DIR}/harfbuzz_%: \
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
 	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -412,7 +411,7 @@ ${INTERMEDIATE_DIR}/harfbuzz_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+
 
 # fribidi_<os>-<arch>
 ${INTERMEDIATE_DIR}/fribidi_%: \
@@ -434,7 +433,6 @@ ${INTERMEDIATE_DIR}/fribidi_%: \
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
 	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -451,8 +449,6 @@ ${INTERMEDIATE_DIR}/fribidi_%: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
-
-	# rm -rf ${TARGET_TMP_DIR}
 
 # freetype_<os>-<arch>
 ${INTERMEDIATE_DIR}/freetype_%: \
@@ -483,7 +479,6 @@ ${INTERMEDIATE_DIR}/freetype_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -502,7 +497,7 @@ ${INTERMEDIATE_DIR}/freetype_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+
 
 # libass_<os>-<arch>
 ${INTERMEDIATE_DIR}/libass_%: \
@@ -540,7 +535,6 @@ ${INTERMEDIATE_DIR}/libass_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -559,7 +553,6 @@ ${INTERMEDIATE_DIR}/libass_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
 
 # libplacebo <os>-<arch>
 ${INTERMEDIATE_DIR}/libplacebo_%: \
@@ -594,7 +587,6 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -614,7 +606,6 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
 
 # uchardet_<os>-<arch>
 ${INTERMEDIATE_DIR}/uchardet_%: \
@@ -636,9 +627,7 @@ ${INTERMEDIATE_DIR}/uchardet_%: \
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
 	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
-
 	env -i \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
@@ -654,8 +643,6 @@ ${INTERMEDIATE_DIR}/uchardet_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
-
 # mpv_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/mpv_%: \
 	${DOWNLOADS_DIR} \
@@ -668,7 +655,7 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 	${INTERMEDIATE_DIR}/freetype_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	$$(if $$(filter video, $$(word 3,$$(subst -, ,$$*))), \
 		${INTERMEDIATE_DIR}/uchardet_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	)
+	) \
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -694,7 +681,7 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -712,9 +699,9 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 		VARIANT=${TARGET_VARIANT} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+
 
 # libogg_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libogg_%: \
@@ -745,7 +732,7 @@ ${INTERMEDIATE_DIR}/libogg_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -765,7 +752,7 @@ ${INTERMEDIATE_DIR}/libogg_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 # libvorbis_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libvorbis_%: \
@@ -797,7 +784,6 @@ ${INTERMEDIATE_DIR}/libvorbis_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -816,8 +802,6 @@ ${INTERMEDIATE_DIR}/libvorbis_%: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
-
-	rm -rf ${TARGET_TMP_DIR}
 
 # libvpx_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libvpx_%: \
@@ -848,7 +832,6 @@ ${INTERMEDIATE_DIR}/libvpx_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_TMP_DIR}
 
 	env -i \
@@ -868,7 +851,6 @@ ${INTERMEDIATE_DIR}/libvpx_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	# rm -rf ${TARGET_TMP_DIR}
 
 # libx264_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libx264_%: \
@@ -899,7 +881,6 @@ ${INTERMEDIATE_DIR}/libx264_%: \
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
-	rm -rf  ${TARGET_DIR}
 	mkdir -p ${TARGET_DIR}
 
 	env -i \
@@ -962,7 +943,6 @@ ${INTERMEDIATE_DIR}/libs-arch_%: \
 
 	$(eval TARGET_ABS_DEPS=$(foreach DEP,${TARGET_DEPS},${PROJECT_DIR}/${DEP}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_OUTPUT_DIR}
 
 	env -i \
@@ -976,7 +956,6 @@ ${INTERMEDIATE_DIR}/libs-arch_%: \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
-	# rm -rf ${TARGET_TMP_DIR}
 
 # libs_<os>-<arch>-<variant>-<flavor>
 ${INTERMEDIATE_DIR}/libs_%: \
@@ -1004,7 +983,7 @@ ${INTERMEDIATE_DIR}/libs_%: \
 
 	$(eval TARGET_ABS_DEPS=$(foreach DEP,${TARGET_DEPS},${PROJECT_DIR}/${DEP}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_OUTPUT_DIR}
 
 	env -i \
@@ -1018,7 +997,7 @@ ${INTERMEDIATE_DIR}/libs_%: \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 # frameworks_<os>-<arch>-<variant>-<flavor>
 ${INTERMEDIATE_DIR}/frameworks_%: \
@@ -1041,7 +1020,7 @@ ${INTERMEDIATE_DIR}/frameworks_%: \
 
 	$(eval TARGET_ABS_DEPS=$(foreach DEP,${TARGET_DEPS},${PROJECT_DIR}/${DEP}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_OUTPUT_DIR}
 
 	env -i \
@@ -1055,7 +1034,7 @@ ${INTERMEDIATE_DIR}/frameworks_%: \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 # xcframeworks_<os>-<arch>-<variant>-<flavor>
 ${INTERMEDIATE_DIR}/xcframeworks_%: \
@@ -1083,7 +1062,7 @@ ${INTERMEDIATE_DIR}/xcframeworks_%: \
 
 	$(eval TARGET_ABS_DEPS=$(foreach DEP,${TARGET_DEPS},${PROJECT_DIR}/${DEP}))
 
-	# # rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
 	mkdir -p ${TARGET_OUTPUT_DIR}
 
 	env -i \
@@ -1097,7 +1076,7 @@ ${INTERMEDIATE_DIR}/xcframeworks_%: \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 # libmpv-<type>_<version>_<os>-<arch>-<variant>-<flavor>.tar.gz
 ${OUTPUT_DIR}/libmpv-%.tar.gz: \
@@ -1116,7 +1095,7 @@ ${OUTPUT_DIR}/libmpv-%.tar.gz: \
 
 	$(eval TARGET_ABS_DEPS=$(foreach DEP,${TARGET_DEPS},${PROJECT_DIR}/${DEP}))
 
-	# rm -rf ${TARGET_TMP_DIR} ${TARGET_FILE}
+	rm -rf ${TARGET_TMP_DIR} ${TARGET_FILE}
 	mkdir -p ${OUTPUT_DIR} ${TARGET_SRC_DIR}
 
 	env -i \
@@ -1128,7 +1107,7 @@ ${OUTPUT_DIR}/libmpv-%.tar.gz: \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_FILE} ${TARGET_FILE}
-	# rm -rf ${TARGET_TMP_DIR}
+	rm -rf ${TARGET_TMP_DIR}
 
 .PHONY: tool-versions
 tool-versions:

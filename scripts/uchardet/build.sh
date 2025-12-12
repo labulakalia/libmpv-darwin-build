@@ -9,16 +9,14 @@ cd ${SRC_DIR}
 cp ${PROJECT_DIR}/scripts/uchardet/meson.build ./meson.build
 meson setup build_cross \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
-    --prefix="${OUTPUT_DIR}" \
-    -Ddefault_library=static
+    --prefix="${OUTPUT_DIR}"
 meson compile -C build_cross uchardet 
 
 # TODO: don't build twice, see what's done for mbetls
 # native build with cmake
 cmake ./subprojects/uchardet \
     -B build_native \
-    -DCMAKE_INSTALL_PREFIX="${OUTPUT_DIR}" \
-    -DBUILD_STATIC=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+    -DCMAKE_INSTALL_PREFIX="${OUTPUT_DIR}"
 make -C build_native
 DESTDIR=$PWD/dist make -C build_native install
 

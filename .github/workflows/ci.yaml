@@ -109,7 +109,10 @@ jobs:
           version: 3.24.3
 
       - name: Install requirements
-        run: apt install go ninja nasm make libfontconfig-dev libdrm-dev libxv-dev libva-dev libvdpau-dev && pip3 install meson
+        run: apt install -y go ninja nasm make libfontconfig-dev libdrm-dev libxv-dev \
+          libva-dev libvdpau-dev libasound2-dev libpipewire-0.3-dev libpulse-dev  \
+            libdisplay-info-dev libgbm-dev wayland-protocols libxkbcommon-dev libxpresent-dev libegl-dev libdrm-dev libegl-dev \
+            && pip3 install meson==1.9.1
 
       - name: Print tool versions
         run: gmake tool-versions

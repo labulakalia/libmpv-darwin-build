@@ -33,7 +33,10 @@ disable_all_options = [
     '--disable-decoders',
     '--disable-demuxers',
     '--disable-protocols',
-    '--disable-parsers'
+    '--disable-parsers',
+    '--disable-programs',
+    '--disable-debug',
+    '--disable-doc',
 ]
 
 
@@ -72,6 +75,7 @@ macos_option = [
 ]
 
 linux_option = [
+    '--enable-libpulse',
     '--enable-vaapi',
     '--enable-vdpau',
     '--enable-libdrm',
