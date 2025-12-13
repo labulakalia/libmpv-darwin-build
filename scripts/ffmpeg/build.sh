@@ -1,14 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
-set -e # exit immediately if a command exits with a non-zero status
+set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
+if [[ -d ${OUTPUT_DIR} ]];then
+    echo "already exists,skip"
+    exit 0
+fi
 
-patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-vp9-hwaccel.patch
-patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-hls-mp4-seek.patch
-patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-ios-hdr-texture.patch
-patch -p1 <${PROJECT_DIR}/patches/ffmpeg-fix-dash-base-url-escape.patch
+env
+
 
 cp ${PROJECT_DIR}/scripts/ffmpeg/meson.* .
 meson setup build \

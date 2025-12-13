@@ -1,9 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
+if [[ -d ${OUTPUT_DIR} ]];then
+    echo "already exists,skip"
+    exit 0
+fi
+
 
 patch -p1 <${PROJECT_DIR}/patches/ltmain-target-passthrough.patch
 

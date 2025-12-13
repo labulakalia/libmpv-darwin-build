@@ -10,7 +10,8 @@ p = mod.add_project('configure',
     configure_options : [
         '--prefix=@PREFIX@',
         '--enable-static',
-        '--disable-cli'
+        '--disable-cli',
+        '--enable-strip'
     ],
     env: {
         'ASFLAGS': host_machine.cpu() == 'amd64' ? '' : ' '.join(c_args)

@@ -109,10 +109,11 @@ jobs:
           version: 3.24.3
 
       - name: Install requirements
-        run: apt install -y ninja nasm make libfontconfig-dev libdrm-dev libxv-dev \
+        run:
+          apt install -y ninja-build nasm make llvm clang libfontconfig-dev libfontconfig-dev libdrm-dev libxv-dev \
           libva-dev libvdpau-dev libasound2-dev libpipewire-0.3-dev libpulse-dev  \
-            libdisplay-info-dev libgbm-dev wayland-protocols libxkbcommon-dev libxpresent-dev libegl-dev libdrm-dev libegl-dev \
-            && pip3 install meson==1.9.1
+          libdisplay-info-dev libgbm-dev wayland-protocols libxkbcommon-dev libxpresent-dev libegl-dev libdrm-dev python3-pip \
+          pip3 install meson==1.9.1 --break-system-packages
 
       - name: Determine version
         id: version
