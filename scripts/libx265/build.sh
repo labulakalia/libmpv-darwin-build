@@ -4,6 +4,12 @@ set -ex # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 MAKEFLAGS=" -j -l $(nproc)"
 cd ${SRC_DIR}
+if [[ -d ${OUTPUT_DIR} ]];then
+    echo "already exists,skip"
+    exit 0
+fi
+
+
 
 mkdir -p build/dist/{lib,include}
 mkdir -p build/dist/lib/pkgconfig
@@ -41,6 +47,10 @@ EOF
 fi
 
 cd ${SRC_DIR}
+if [[ -d ${OUTPUT_DIR} ]];then
+    echo "already exists,skip"
+    exit 0
+fi
 cp source/x265.h ${SRC_DIR}/build/dist/include/
 mkdir -p ${OUTPUT_DIR}
 cp -rf build/dist/* ${OUTPUT_DIR}/
