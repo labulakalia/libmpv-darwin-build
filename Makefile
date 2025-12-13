@@ -119,20 +119,19 @@ ${INTERMEDIATE_DIR}/tool-versions.lock:
 	mkdir -p ${INTERMEDIATE_DIR}
 	go run cmd/tool-versions/main.go > $@
 
-${DOWNLOADS_DIR}: \
-	downloads.lock \
+${DOWNLOADS_DIR}:
 	
 	@echo "\033[32mRULE\033[0m $@"
 
 	mkdir -p ${INTERMEDIATE_DIR}
 
+	$(eval TARGET_PATTERN=$*)
 	$(eval TARGET_DIR=$@)
 	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
 	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
 	$(eval TARGET_OUTPUT_DIR=${TARGET_TMP_DIR}/output)
 	mkdir -p ${TARGET_DIR}
-
-	go run cmd/downloads/main.go downloads.lock ${TARGET_DIR}
+	bash download.sh downloads.lock ${TARGET_DIR}
 
 
 ${LINKS_DIR}:
