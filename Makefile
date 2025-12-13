@@ -322,6 +322,7 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 	${DOWNLOADS_DIR} \
 	${PKGCONFIG_DIR} \
 	${INTERMEDIATE_DIR}/libx264_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libx265_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/mbedtls_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libvorbis_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libogg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
@@ -449,6 +450,162 @@ ${INTERMEDIATE_DIR}/fribidi_%: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
+# libbluray_<os>-<arch>
+${INTERMEDIATE_DIR}/libbluray_%: \
+	${DOWNLOADS_DIR} \
+	${PKGCONFIG_DIR}
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	mkdir -p ${TARGET_TMP_DIR}
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
+		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
+
+# llibdvdcss_<os>-<arch>
+${INTERMEDIATE_DIR}/libdvdcss_%: \
+	${DOWNLOADS_DIR} \
+	${PKGCONFIG_DIR}
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	mkdir -p ${TARGET_TMP_DIR}
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
+		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
+
+# libdvdnav_<os>-<arch>
+${INTERMEDIATE_DIR}/libdvdnav_%: \
+	${DOWNLOADS_DIR} \
+	${PKGCONFIG_DIR}
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	mkdir -p ${TARGET_TMP_DIR}
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
+		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
+# libdvdread_<os>-<arch>
+${INTERMEDIATE_DIR}/libdvdread_%: \
+	${DOWNLOADS_DIR} \
+	${PKGCONFIG_DIR}
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	mkdir -p ${TARGET_TMP_DIR}
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
+		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
+
 
 # freetype_<os>-<arch>
 ${INTERMEDIATE_DIR}/freetype_%: \
@@ -606,6 +763,41 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
+# libarchive_<os>-<arch>
+${INTERMEDIATE_DIR}/libarchive_%: \
+	${DOWNLOADS_DIR} \
+	${PKGCONFIG_DIR}
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	mkdir -p ${TARGET_TMP_DIR}
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 # uchardet_<os>-<arch>
 ${INTERMEDIATE_DIR}/uchardet_%: \
@@ -650,6 +842,11 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 	${INTERMEDIATE_DIR}/ffmpeg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))-$$(word 3,$$(subst -, ,$$*))-default \
 	${INTERMEDIATE_DIR}/libplacebo_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libass_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libbluray_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libdvdread_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libdvdnav_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libdvdcss_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libarchive_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/harfbuzz_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/fribidi_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/freetype_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
@@ -900,7 +1097,43 @@ ${INTERMEDIATE_DIR}/libx264_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-	
+# libx265_<os>-<arch>
+${INTERMEDIATE_DIR}/libx265_%: \
+	${DOWNLOADS_DIR} \
+	${PKGCONFIG_DIR}
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	mkdir -p ${TARGET_TMP_DIR}
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
+
 
 # libs-arch_<os>-<arch>-<variant>-<flavor>
 ${INTERMEDIATE_DIR}/libs-arch_%: \

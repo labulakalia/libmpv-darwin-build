@@ -1,0 +1,37 @@
+# https://mesonbuild.com/External-Project-module.html
+
+project('libarchive', 'c', 'cpp')
+
+cmake = import('cmake')
+
+cpu = host_machine.cpu()
+if cpu == 'amd64'
+    arch = 'x86_64'
+elif cpu == 'arm64'
+    arch = 'arm64'
+endif
+
+options = cmake.subproject_options()
+options.add_cmake_defines({
+    'CMAKE_OSX_ARCHITECTURES': arch,
+    'CMAKE_BUILD_TYPE': 'Release',
+    'CMAKE_POLICY_VERSION_MINIMUM': '3.5',
+    'BUILD_SHARED_LIBS':'OFF',
+    'ENABLE_TEST': 'OFF',
+    'ENABLE_CPIO': 'OFF',
+    'ENABLE_TAR': 'OFF',
+    'ENABLE_XATTR': 'OFF'
+})
+
+if host_machine.system() == 'darwin'
+  options.add_cmake_defines({
+    'CMAKE_OSX_SYSROOT': meson.get_cross_property('cmake_osx_sysroot'),
+})
+endif
+
+libarchive = cmake.subproject('libarchive',
+    options: options,
+)
+message('CMake targets:\n - ' + '\n - '.join(libarchive.target_list()))
+libarchive_dep = libarchive.dependency('archive_static')
+meson.override_dependency('archive_static', libarchive_dep)
