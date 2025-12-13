@@ -114,9 +114,6 @@ jobs:
             libdisplay-info-dev libgbm-dev wayland-protocols libxkbcommon-dev libxpresent-dev libegl-dev libdrm-dev libegl-dev \
             && pip3 install meson==1.9.1
 
-      - name: Print tool versions
-        run: gmake tool-versions
-
       - name: Determine version
         id: version
         run: |
@@ -126,7 +123,7 @@ jobs:
       - name: Build
         run: |
           export VERSION=${{ env.VERSION }}
-          make build_ios
+          make build_linux
 
       - name: Create Github release
         uses: softprops/action-gh-release@v2

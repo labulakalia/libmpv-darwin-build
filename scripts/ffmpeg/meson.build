@@ -47,6 +47,7 @@ common_options = [
     '--pkg-config-flags=--static',
     '--enable-gpl',
     '--enable-libx264',
+    '--enable-libx265',
     '--enable-libfreetype',
     '--enable-neon',
     '--enable-zlib',

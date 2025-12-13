@@ -13,6 +13,7 @@ meson setup build \
     --prefix="${OUTPUT_DIR}"
 
 meson compile -C build libass
+meson compile -C build libass
 
 # manual install to preserve symlinks (meson install -C build)
 mkdir -p "${OUTPUT_DIR}"

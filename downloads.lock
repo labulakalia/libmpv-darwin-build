@@ -43,7 +43,7 @@ markupsafe:
   url: https://github.com/pallets/markupsafe/releases/download/2.1.2/MarkupSafe-2.1.2.tar.gz
   sha256: abcabc8c2b26036d62d4c746381a6f7cf60aafcc653198ad678306986b09450d
 Vulkan-Headers:
-  version: v1.4.336
+  version: 1.4.336
   url: https://github.com/KhronosGroup/Vulkan-Headers/archive/refs/tags/v1.4.336.tar.gz
   sha256: ab07d2119c8f09765ba704463dcb14238e1ccd4083b3afc6a29a463fa1cd0923
 libogg:
@@ -82,3 +82,30 @@ uchardet:
   version: 0.0.8
   url: https://github.com/oe-mirrors/uchardet/archive/refs/tags/v0.0.8.tar.gz
   sha256: 21d9aaf1ab383575e4d0cea0bad379788df22e2ca99cf603b9393faef71cd2ed
+
+libbluray:
+  version: 1.4.0
+  url: https://code.videolan.org/videolan/libbluray/-/archive/1.4.0/libbluray-1.4.0.tar.gz
+  sha256: 0dc218f79435798a62da2a0510e0e921a3f7c1b140507df8e65f48d98046f024
+libudfread:
+  version: 1.2.0
+  url: https://code.videolan.org/videolan/libudfread/-/archive/1.2.0/libudfread-1.2.0.tar.gz
+  sha256: adcce1190925f9d35a477757c5e3f0e221315d14d3d45b4ae62540ea0925f877
+
+libdvdread:
+  version: 7.0.1
+  url: https://code.videolan.org/videolan/libdvdread/-/archive/7.0.1/libdvdread-7.0.1.tar.gz
+  sha256: 5eeda23c75405c89d04f4c601cbb99447477ea5c8c05b341c59da07b1651155b
+libdvdcss:
+  version: 1.5.0
+  url: https://code.videolan.org/videolan/libdvdcss/-/archive/1.5.0/libdvdcss-1.5.0.tar.gz
+  sha256: 7c0eb732653eced7d74cb9ad1b9b9b1c6206b0cea73ca596c77372df3e1d9d9f
+libdvdnav:
+  version: 7.0.0
+  url: https://code.videolan.org/videolan/libdvdnav/-/archive/7.0.0/libdvdnav-7.0.0.tar.gz
+  sha256: 15d28086937647a95c3d6b083f0a86678cd4dd428914e319c64adf52cadec786
+
+libarchive:
+  version: 3.8.4
+  url: https://github.com/libarchive/libarchive/releases/download/v3.8.4/libarchive-3.8.4.tar.gz
+  sha256: b2c75b132a0ec43274d2867221befcb425034cd038e465afbfad09911abb1abb

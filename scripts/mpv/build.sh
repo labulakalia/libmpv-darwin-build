@@ -128,6 +128,11 @@ COMMON_OPTIONS=(
     -Diconv=enabled # iconv
     -Dvulkan=enabled
     -Dgpl=true
+
+    -Dlibarchive=enabled
+    -Dlibbluray=enabled
+    -Ddvdread=enabled
+
 )
 
 COMMON_VIDEO_OPTIONS=(
