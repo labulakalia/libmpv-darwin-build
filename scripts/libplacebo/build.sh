@@ -41,6 +41,8 @@ meson setup build \
     -Dtests=false \
     -Dvulkan=enabled \
     -Ddebug=false \
+    -Dglslang=enabled \
+    -Ddefault_library=static \
     -Dshaderc=enabled
 
 meson compile -C build

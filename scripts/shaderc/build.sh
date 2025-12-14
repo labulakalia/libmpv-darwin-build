@@ -9,7 +9,7 @@ if [[ -d ${OUTPUT_DIR} ]];then
     exit 0
 fi
 ./utils/git-sync-deps
-/usr/bin/python3 /root/libmpv-darwin-build/build/tmp/shaderc_linux-amd64/src/shaderc/utils/add_copyright.py
+/usr/bin/python3 ./utils/add_copyright.py
 # cross build with meson
 cmake -GNinja -H$SRC_DIR -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${OUTPUT_DIR} \
         -DSHADERC_SKIP_TESTS=ON \
