@@ -15,7 +15,7 @@ cp ${PROJECT_DIR}/scripts/libogg/meson.* .
 
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
-    --prefix="${OUTPUT_DIR}" |
+    --prefix="${OUTPUT_DIR}" -Ddebug=false |
     tee configure.log
 
 meson compile -C build libogg

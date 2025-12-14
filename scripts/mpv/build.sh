@@ -130,7 +130,7 @@ COMMON_OPTIONS=(
 
     # misc features
     -Diconv=enabled # iconv
-    -Dvulkan=enabled
+    -Dvulkan=enabled # only for linux windows android darwin use
     -Dgpl=true
 
     -Dlibarchive=enabled
@@ -212,7 +212,7 @@ fi
 
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
-    --prefix="${OUTPUT_DIR}" \
+    --prefix="${OUTPUT_DIR}" -Doptimization=s -Ddebug=false \
     "${OPTIONS[@]}" |
     tee configure.log
 

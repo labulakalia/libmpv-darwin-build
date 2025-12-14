@@ -18,7 +18,7 @@ fi
 cp ${PROJECT_DIR}/scripts/mbedtls/meson.build ./meson.build
 meson setup build_cross \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
-    --prefix="${OUTPUT_DIR}"
+    --prefix="${OUTPUT_DIR}" -Ddebug=false
 meson compile -C build_cross mbedtls mbedx509 mbedcrypto
  
 # manually create output

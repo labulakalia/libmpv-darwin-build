@@ -47,8 +47,8 @@ TMP_DIR = ${PROJECT_DIR}/${BUILD_DIR}/tmp
 OUTPUT_DIR = ${BUILD_DIR}/output
 DOWNLOADS_DIR = ${INTERMEDIATE_DIR}/downloads
 LINKS_DIR = ${INTERMEDIATE_DIR}/links
-PKGCONFIG_DIR = ${INTERMEDIATE_DIR}/pkg-config_${HOST_OS}-${HOST_ARCH}
-SANDBOX_PATH = ${PROJECT_DIR}/${LINKS_DIR}/bin:${PROJECT_DIR}/${PKGCONFIG_DIR}/bin:${PATH}
+PKGCONFIG_DIR = ""
+SANDBOX_PATH = ${PATH}
 
 # chars
 NULL =
@@ -132,74 +132,11 @@ ${DOWNLOADS_DIR}:
 	mkdir -p ${TARGET_DIR}
 	bash download.sh downloads.lock ${TARGET_DIR}
 
-
-${LINKS_DIR}:
-	@echo "\033[32mRULE\033[0m $@"
-
-	mkdir -p ${INTERMEDIATE_DIR}
-
-	$(eval TARGET_DIR=$@)
-	$(eval TARGET_PATTERN=$*)
-	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
-	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
-	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
-
-	rm -rf ${TARGET_DIR}
-	@echo PROJECT_DIR${PROJECT_DIR}
-	env \
-		BINARIES="meson ninja cmake nasm" \
-		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/links/build.sh
-
-# pkg-config_<os>-<arch>
-${INTERMEDIATE_DIR}/pkg-config_%: \
-	${DOWNLOADS_DIR} \
-	${LINKS_DIR} \
-
-	# @echo "\033[32mRULE\033[0m $@"
-
-	# $(eval TARGET_DIR=$@)
-	# $(eval TARGET_PATTERN=$*)
-	# @echo TARGET_PATTERN${TARGET_PATTERN}
-	# $(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
-	# $(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
-	# $(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
-	# $(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
-	# $(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
-
-	# $(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
-
-	# $(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
-	# $(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
-
-	rm -rf ${TARGET_TMP_DIR} ${TARGET_DIR}
-	# 	rm -rf ${TARGET_SRC_DIR}
-	mkdir -p ${TARGET_SRC_DIR}
-
-	# echo SANDBOX_PATH ${TARGET_OS}
-	# echo SANDBOX_PATH ${TARGET_ARCH}
-	# exit 0
-	# env -i \
-	# 	PATH=${SANDBOX_PATH} \
-	# 	ARCHIVE_FILE=${ARCHIVE_FILE} \
-	# 	TARGET_DIR=${TARGET_SRC_DIR} \
-	# 	sh ${PROJECT_DIR}/scripts/extract/build.sh
-	
-	# env -i \
-	# 	PATH=${SANDBOX_PATH} \
-	# 	PROJECT_DIR=${PROJECT_DIR} \
-	# 	OS=${TARGET_OS} \
-	# 	ARCH=${TARGET_ARCH} \
-	# 	SRC_DIR=${TARGET_SRC_DIR} \
-	# 	OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-	# 	sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
-
 # 	rm -rf ${TARGET_TMP_DIR}
 
 # dav1d_<os>-<arch>
 ${INTERMEDIATE_DIR}/dav1d_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR}
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -237,8 +174,7 @@ ${INTERMEDIATE_DIR}/dav1d_%: \
 
 # mbedtls_<os>-<arch>
 ${INTERMEDIATE_DIR}/mbedtls_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR} 
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -277,7 +213,7 @@ ${INTERMEDIATE_DIR}/mbedtls_%: \
 # libxml2_<os>-<arch>
 ${INTERMEDIATE_DIR}/libxml2_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
+	
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -316,10 +252,6 @@ ${INTERMEDIATE_DIR}/libxml2_%: \
 # ffmpeg_<os>-<arch>-<variant>-<flavor>
 ${INTERMEDIATE_DIR}/ffmpeg_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
-	${INTERMEDIATE_DIR}/libx264_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	${INTERMEDIATE_DIR}/libx265_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	${INTERMEDIATE_DIR}/mbedtls_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libvorbis_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libogg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/dav1d_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
@@ -328,7 +260,10 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 	${INTERMEDIATE_DIR}/libbluray_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libdvdread_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libdvdnav_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	
+	${INTERMEDIATE_DIR}/mbedtls_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libx265_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libx264_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))
+
 	@echo "\033[32mRULE\033[0m $@"
 
 	$(eval TARGET_DIR=$@)
@@ -377,8 +312,7 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 
 # harfbuzz_<os>-<arch>
 ${INTERMEDIATE_DIR}/harfbuzz_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR}
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -417,8 +351,7 @@ ${INTERMEDIATE_DIR}/harfbuzz_%: \
 
 # fribidi_<os>-<arch>
 ${INTERMEDIATE_DIR}/fribidi_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR} 
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -455,8 +388,7 @@ ${INTERMEDIATE_DIR}/fribidi_%: \
 
 # libbluray_<os>-<arch>
 ${INTERMEDIATE_DIR}/libbluray_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR} 
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -496,7 +428,6 @@ ${INTERMEDIATE_DIR}/libbluray_%: \
 # libdvdnav_<os>-<arch>
 ${INTERMEDIATE_DIR}/libdvdnav_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
 	${INTERMEDIATE_DIR}/libdvdread_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 
 	@echo "\033[32mRULE\033[0m $@"
@@ -544,8 +475,7 @@ ${INTERMEDIATE_DIR}/libdvdnav_%: \
 
 # libdvdread_<os>-<arch>
 ${INTERMEDIATE_DIR}/libdvdread_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR}
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -586,7 +516,6 @@ ${INTERMEDIATE_DIR}/libdvdread_%: \
 # freetype_<os>-<arch>
 ${INTERMEDIATE_DIR}/freetype_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
 	${INTERMEDIATE_DIR}/harfbuzz_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))
 
 	@echo "\033[32mRULE\033[0m $@"
@@ -607,8 +536,7 @@ ${INTERMEDIATE_DIR}/freetype_%: \
 
 	$(eval TARGET_PKGS_DEPS=$(foreach DEP,${TARGET_DEPS}, \
 		$(if $(findstring downloads,${DEP}),, \
-			$(if $(findstring pkg-config,${DEP}),, \
-				${DEP}))))
+				${DEP})))
 	$(eval PKG_CONFIG_PATH_LIST=$(foreach DEP,${TARGET_PKGS_DEPS},${PROJECT_DIR}/${DEP}/lib/pkgconfig))
 	$(eval PKG_CONFIG_PATH=$(subst ${SPACE},${COLON},${PKG_CONFIG_PATH_LIST}))
 
@@ -636,7 +564,6 @@ ${INTERMEDIATE_DIR}/freetype_%: \
 # libass_<os>-<arch>
 ${INTERMEDIATE_DIR}/libass_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
 	${INTERMEDIATE_DIR}/harfbuzz_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/fribidi_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/freetype_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))
@@ -691,9 +618,8 @@ ${INTERMEDIATE_DIR}/libass_%: \
 
 # libplacebo <os>-<arch>
 ${INTERMEDIATE_DIR}/libplacebo_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
-	set -ex
+	${DOWNLOADS_DIR}
+
 	@echo "\033[32mRULE\033[0m $@"
 
 	$(eval TARGET_DIR=$@)
@@ -745,7 +671,7 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 # libarchive_<os>-<arch>
 ${INTERMEDIATE_DIR}/libarchive_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
+	
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -781,8 +707,7 @@ ${INTERMEDIATE_DIR}/libarchive_%: \
 
 # uchardet_<os>-<arch>
 ${INTERMEDIATE_DIR}/uchardet_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR} 
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -819,8 +744,7 @@ ${INTERMEDIATE_DIR}/uchardet_%: \
 # mpv_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/mpv_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
-	${INTERMEDIATE_DIR}/ffmpeg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))-$$(word 3,$$(subst -, ,$$*))-default \
+	${INTERMEDIATE_DIR}/ffmpeg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))-$$(word 3,$$(subst -, ,$$*))-$$(word 4,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libplacebo_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libass_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libarchive_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
@@ -829,9 +753,8 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 	${INTERMEDIATE_DIR}/harfbuzz_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/fribidi_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/freetype_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	$$(if $$(filter video, $$(word 3,$$(subst -, ,$$*))), \
-		${INTERMEDIATE_DIR}/uchardet_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	) \
+	${INTERMEDIATE_DIR}/uchardet_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libbluray_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -883,7 +806,7 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 # libogg_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libogg_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
+	
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -935,7 +858,6 @@ ${INTERMEDIATE_DIR}/libogg_%: \
 # libvorbis_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libvorbis_%: \
 	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR} \
 	${INTERMEDIATE_DIR}/libogg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 
 	@echo "\033[32mRULE\033[0m $@"
@@ -1034,8 +956,7 @@ ${INTERMEDIATE_DIR}/libvpx_%: \
 
 # libx264_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libx264_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR}
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -1083,8 +1004,7 @@ ${INTERMEDIATE_DIR}/libx264_%: \
 
 # libx265_<os>-<arch>
 ${INTERMEDIATE_DIR}/libx265_%: \
-	${DOWNLOADS_DIR} \
-	${PKGCONFIG_DIR}
+	${DOWNLOADS_DIR} 
 
 	@echo "\033[32mRULE\033[0m $@"
 

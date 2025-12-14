@@ -17,7 +17,7 @@ cp ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini .
 
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
-    --prefix="${OUTPUT_DIR}"
+    --prefix="${OUTPUT_DIR}" -Ddebug=false
 
 meson compile -C build libxml2
 

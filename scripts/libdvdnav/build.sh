@@ -12,6 +12,6 @@ fi
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}" \
-    -Ddefault_library=static
+    -Ddefault_library=static -Ddebug=false
 meson compile -C build
 meson install -C build

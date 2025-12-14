@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex # exit immediately if a command exits with a non-zero status
+set -x # exit immediately if a command exits with a non-zero status
 set -u # treat unset variables as an error
 
 cd ${SRC_DIR}
@@ -20,6 +20,6 @@ fi
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}" \
-    -Ddefault_library=static
+    -Ddefault_library=static -Ddebug=false
 meson compile -C build libx264
 meson install -C build

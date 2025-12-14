@@ -39,7 +39,8 @@ meson setup build \
     -Ddemos=false \
     -Dtests=false \
     -Dvulkan=enabled \
-    --default-library=static
+    --default-library=static \
+    -Ddebug=false
 
 meson compile -C build
 meson install -C build
