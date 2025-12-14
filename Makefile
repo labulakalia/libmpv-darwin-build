@@ -618,7 +618,7 @@ ${INTERMEDIATE_DIR}/libass_%: \
 
 # libplacebo <os>-<arch>
 ${INTERMEDIATE_DIR}/libplacebo_%: \
-	${DOWNLOADS_DIR}
+	${DOWNLOADS_DIR} 
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -630,7 +630,7 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
 	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
 	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
-	@echo ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*
+
 	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
 
 	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
@@ -660,7 +660,7 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 	env -i \
 		PATH=${SANDBOX_PATH} \
 		PROJECT_DIR=${PROJECT_DIR} \
-		PKG_CONFIG_PATH=${PKG_CONFIG_PATH} \
+		PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/usr/lib/x86_64-linux-gnu/pkgconfig/ \
 		OS=${TARGET_OS} \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
@@ -672,6 +672,42 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 ${INTERMEDIATE_DIR}/libarchive_%: \
 	${DOWNLOADS_DIR} \
 	
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	rm -rf ${TARGET_SRC_DIR}
+	mkdir -p ${TARGET_SRC_DIR}
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
+# shaderc_<os>-<arch>
+${INTERMEDIATE_DIR}/shaderc_%: \
+	${DOWNLOADS_DIR} 
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -741,10 +777,84 @@ ${INTERMEDIATE_DIR}/uchardet_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
+# vulkan-headers_<os>-<arch>
+${INTERMEDIATE_DIR}/vulkan-headers_%: \
+	${DOWNLOADS_DIR} 
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	@echo ------${DOWNLOADS_DIR}/${TARGET_PKGNAME}
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	rm -rf ${TARGET_SRC_DIR}
+	mkdir -p ${TARGET_SRC_DIR}
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR}/subprojects/${TARGET_PKGNAME} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
+# vulkan_<os>-<arch>
+${INTERMEDIATE_DIR}/vulkan_%: \
+	${DOWNLOADS_DIR} 
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	rm -rf ${TARGET_SRC_DIR}
+	mkdir -p ${TARGET_SRC_DIR}
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR} \
+		sh ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+
 # mpv_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/mpv_%: \
 	${DOWNLOADS_DIR} \
 	${INTERMEDIATE_DIR}/ffmpeg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))-$$(word 3,$$(subst -, ,$$*))-$$(word 4,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/shaderc_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libplacebo_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libass_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libarchive_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \

@@ -103,3 +103,11 @@ libarchive:
   version: 3.8.4
   url: https://github.com/libarchive/libarchive/releases/download/v3.8.4/libarchive-3.8.4.tar.gz
   sha256: b2c75b132a0ec43274d2867221befcb425034cd038e465afbfad09911abb1abb
+vulkan:
+  version: 1.4.336
+  url: https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v1.4.336.tar.gz
+  sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+shaderc:
+  version: 2025.5
+  url: https://github.com/google/shaderc/archive/refs/tags/v2025.5.tar.gz
+  sha256: fca5041b1fdea6daba167b63e04e55e5059fab40828342126169336643445447 
