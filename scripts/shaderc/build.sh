@@ -12,10 +12,14 @@ fi
 /usr/bin/python3 /root/libmpv-darwin-build/build/tmp/shaderc_linux-amd64/src/shaderc/utils/add_copyright.py
 # cross build with meson
 cmake -GNinja -H$SRC_DIR -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${OUTPUT_DIR} \
-        -DBUILD_SHARED_LIBS=OFF \
         -DSHADERC_SKIP_TESTS=ON \
+        -DSHADERC_SKIP_INSTALL=OFF \
         -DSHADERC_SKIP_EXAMPLES=ON \
-        -DSHADERC_SKIP_EXECUTABLES=OFF
+        -DSPIRV_SKIP_EXECUTABLES=ON \
+        -DSPIRV_SKIP_TESTS=ON \
+        -DENABLE_SPIRV_TOOLS_INSTALL=ON \
+        -DENABLE_GLSLANG_BINARIES=OFF \
+        -DSPIRV_TOOLS_BUILD_STATIC=ON
 ninja shaderc_combined-pkg-config
 
 ninja install
