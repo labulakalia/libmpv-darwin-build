@@ -136,6 +136,7 @@ COMMON_OPTIONS=(
     -Dlibarchive=enabled
     -Dlibbluray=enabled
     -Ddvdnav=enabled
+    -Dshaderc=enabled
     
 )
 
