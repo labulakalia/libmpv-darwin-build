@@ -26,7 +26,7 @@ configure_options = [
     '--disable-acl',
     '--disable-xattr',
     '--enable-posix-regex-lib=libc',
-
+    '--with_mbedtls',
 
 ]
 
