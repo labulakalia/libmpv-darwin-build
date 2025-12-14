@@ -135,8 +135,8 @@ COMMON_OPTIONS=(
 
     -Dlibarchive=enabled
     -Dlibbluray=enabled
-    -Ddvdread=enabled
-
+    -Ddvdnav=enabled
+    
 )
 
 COMMON_VIDEO_OPTIONS=(
