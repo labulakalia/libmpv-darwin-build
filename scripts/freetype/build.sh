@@ -18,6 +18,6 @@ meson setup build \
     -Dpng=enabled \
     -Dtests=disabled \
     -Dzlib=enabled \
-    -Ddefault_library=static
+    -Ddefault_library=static -Ddebug=false
 meson compile -C build
 meson install -C build

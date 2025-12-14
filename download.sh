@@ -26,18 +26,18 @@ download_file() {
 }
 
 downloadDep() {
-    while IFS= read -r line; do
+    while IFS= read -r line  || [ -n "$line" ]; do
+        [ -z "$line" ] && continue
+        echo line:$line
         if [[ $name == "" ]];then
             name=$(echo $line | awk -F':' '{print $1}')
         else
-            if echo $line | grep -q "version";then
+            if echo $line | grep -q "version" > /dev/null;then
                 version=$(echo $line | awk -F':' '{print $2}'|sed 's/ //g' | sed 's/"//g')
-            fi
-            if echo $line | grep -q "url";then
+            elif echo $line | grep -q "url" > /dev/null;then
                 url=$(echo $line | awk -F':' '{print $2":"$3}'|sed 's/ //g')
                 ext=$(echo $url | awk -F'.' '{print $(NF-1)"."$NF}')
-            fi
-            if echo $line | grep -q "sha256";then
+            elif echo $line | grep -q "sha256" > /dev/null;then
                 sha256=$(echo $line | awk -F':' '{print $2}')
                 download_file $url $dest_dir/${name}-${version}.$ext $sha256
                 name=""
@@ -45,6 +45,8 @@ downloadDep() {
                 url=""
                 sha256=""
                 ext=""
+            else
+                echo
             fi
         fi
     done < $1

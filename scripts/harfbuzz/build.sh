@@ -30,6 +30,9 @@ meson setup build \
     -Dexperimental_api=false \
     -Dragel_subproject=false \
     --default-library=static \
-    -Dfuzzer_ldflags=
+    -Dfuzzer_ldflags= \
+    -Doptimization=s \
+    -Ddebug=false
 meson compile -C build
-meson install -C build
+meson install -C build 
+

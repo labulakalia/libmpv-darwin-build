@@ -17,7 +17,8 @@ meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}" \
     -Dvariant=${VARIANT} \
-    -Dflavor=${FLAVOR} -Dc_link_args='-lxml2' |
+    -Dflavor=${FLAVOR} -Dc_link_args='-lxml2' \
+    -Ddebug=false |
     tee configure.log
 
 meson compile -C build ffmpeg

@@ -110,9 +110,9 @@ jobs:
 
       - name: Install requirements
         run:
-          apt install -y ninja-build nasm make llvm clang libfontconfig-dev libfontconfig-dev libdrm-dev libxv-dev \
+          apt install -y ninja-build nasm make cmake llvm clang libfontconfig-dev libfontconfig-dev libdrm-dev libxv-dev \
           libva-dev libvdpau-dev libasound2-dev libpipewire-0.3-dev libpulse-dev  \
-          libdisplay-info-dev libgbm-dev wayland-protocols libxkbcommon-dev libxpresent-dev libegl-dev libdrm-dev python3-pip \
+          libdisplay-info-dev libgbm-dev wayland-protocols libxkbcommon-dev libxpresent-dev libegl-dev libdrm-dev python3-pip libvulkan-dev  libshaderc-dev libxss-dev  \
           pip3 install meson==1.9.1 --break-system-packages
 
       - name: Determine version
