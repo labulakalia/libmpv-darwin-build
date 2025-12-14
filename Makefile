@@ -618,7 +618,8 @@ ${INTERMEDIATE_DIR}/libass_%: \
 
 # libplacebo <os>-<arch>
 ${INTERMEDIATE_DIR}/libplacebo_%: \
-	${DOWNLOADS_DIR} 
+	${DOWNLOADS_DIR} \
+	${INTERMEDIATE_DIR}/shaderc_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))
 
 	@echo "\033[32mRULE\033[0m $@"
 
