@@ -9,7 +9,7 @@ if [[ -d ${OUTPUT_DIR} ]];then
     exit 0
 fi
 
-# patch -p1 <${PROJECT_DIR}/patches/vulkan-build-static.patch
+patch -p1 <${PROJECT_DIR}/patches/vulkan-build-static.patch
 
 # build for linux
 mkdir build
