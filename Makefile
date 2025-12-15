@@ -108,7 +108,7 @@ ${OUTPUT_DIR}/debug.zip: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		DEPS="${TARGET_ABS_DEPS}" \
 		OUTPUT_FILE=${TARGET_OUTPUT_FILE} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 	
 	mv ${TARGET_OUTPUT_FILE} ${TARGET_FILE}
 	rm -rf ${TARGET_TMP_DIR}
@@ -160,7 +160,7 @@ ${INTERMEDIATE_DIR}/dav1d_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -169,7 +169,7 @@ ${INTERMEDIATE_DIR}/dav1d_%: \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 # mbedtls_<os>-<arch>
@@ -198,7 +198,7 @@ ${INTERMEDIATE_DIR}/mbedtls_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR}/subprojects/${TARGET_PKGNAME} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -207,7 +207,7 @@ ${INTERMEDIATE_DIR}/mbedtls_%: \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 # libxml2_<os>-<arch>
@@ -237,7 +237,7 @@ ${INTERMEDIATE_DIR}/libxml2_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -246,7 +246,7 @@ ${INTERMEDIATE_DIR}/libxml2_%: \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 # ffmpeg_<os>-<arch>-<variant>-<flavor>
@@ -295,7 +295,7 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -307,7 +307,7 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 		FLAVOR=${TARGET_FLAVOR} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 # harfbuzz_<os>-<arch>
@@ -336,7 +336,7 @@ ${INTERMEDIATE_DIR}/harfbuzz_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -345,7 +345,7 @@ ${INTERMEDIATE_DIR}/harfbuzz_%: \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 
@@ -375,7 +375,7 @@ ${INTERMEDIATE_DIR}/fribidi_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -384,7 +384,7 @@ ${INTERMEDIATE_DIR}/fribidi_%: \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 # libbluray_<os>-<arch>
 ${INTERMEDIATE_DIR}/libbluray_%: \
@@ -412,7 +412,7 @@ ${INTERMEDIATE_DIR}/libbluray_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -422,7 +422,7 @@ ${INTERMEDIATE_DIR}/libbluray_%: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 # libdvdnav_<os>-<arch>
@@ -460,7 +460,7 @@ ${INTERMEDIATE_DIR}/libdvdnav_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -471,7 +471,7 @@ ${INTERMEDIATE_DIR}/libdvdnav_%: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 # libdvdread_<os>-<arch>
 ${INTERMEDIATE_DIR}/libdvdread_%: \
@@ -499,7 +499,7 @@ ${INTERMEDIATE_DIR}/libdvdread_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -509,7 +509,7 @@ ${INTERMEDIATE_DIR}/libdvdread_%: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 
@@ -547,7 +547,7 @@ ${INTERMEDIATE_DIR}/freetype_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -557,7 +557,7 @@ ${INTERMEDIATE_DIR}/freetype_%: \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 
@@ -603,7 +603,7 @@ ${INTERMEDIATE_DIR}/libass_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -613,7 +613,7 @@ ${INTERMEDIATE_DIR}/libass_%: \
 		ARCH=${TARGET_ARCH} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 # libplacebo <os>-<arch>
@@ -656,7 +656,7 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -667,7 +667,7 @@ ${INTERMEDIATE_DIR}/libplacebo_%: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		DOWNLOADS_DIR="${PROJECT_DIR}/${DOWNLOADS_DIR}" \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 # libarchive_<os>-<arch>
 ${INTERMEDIATE_DIR}/libarchive_%: \
@@ -695,7 +695,7 @@ ${INTERMEDIATE_DIR}/libarchive_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -731,7 +731,7 @@ ${INTERMEDIATE_DIR}/shaderc_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -767,7 +767,7 @@ ${INTERMEDIATE_DIR}/uchardet_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR}/subprojects/${TARGET_PKGNAME} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -778,42 +778,6 @@ ${INTERMEDIATE_DIR}/uchardet_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
-# vulkan-headers_<os>-<arch>
-${INTERMEDIATE_DIR}/vulkan-headers_%: \
-	${DOWNLOADS_DIR} 
-
-	@echo "\033[32mRULE\033[0m $@"
-
-	$(eval TARGET_DIR=$@)
-	$(eval TARGET_PATTERN=$*)
-	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
-	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
-	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
-	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
-	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
-
-	@echo ------${DOWNLOADS_DIR}/${TARGET_PKGNAME}
-	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
-
-	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
-	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
-
-	rm -rf ${TARGET_SRC_DIR}
-	mkdir -p ${TARGET_SRC_DIR}
-	env -i \
-		PATH=${SANDBOX_PATH} \
-		ARCHIVE_FILE=${ARCHIVE_FILE} \
-		TARGET_DIR=${TARGET_SRC_DIR}/subprojects/${TARGET_PKGNAME} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
-
-	env -i \
-		PATH=${SANDBOX_PATH} \
-		PROJECT_DIR=${PROJECT_DIR} \
-		OS=${TARGET_OS} \
-		ARCH=${TARGET_ARCH} \
-		SRC_DIR=${TARGET_SRC_DIR} \
-		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 # vulkan_<os>-<arch>
 ${INTERMEDIATE_DIR}/vulkan_%: \
@@ -840,7 +804,7 @@ ${INTERMEDIATE_DIR}/vulkan_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -851,13 +815,13 @@ ${INTERMEDIATE_DIR}/vulkan_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
+
+
 # mpv_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/mpv_%: \
 	${DOWNLOADS_DIR} \
 	${INTERMEDIATE_DIR}/ffmpeg_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))-$$(word 3,$$(subst -, ,$$*))-$$(word 4,$$(subst -, ,$$*)) \
-	${INTERMEDIATE_DIR}/shaderc_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libplacebo_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	${INTERMEDIATE_DIR}/shaderc_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libass_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libarchive_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libdvdread_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
@@ -866,7 +830,8 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 	${INTERMEDIATE_DIR}/fribidi_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/freetype_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/uchardet_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
-	${INTERMEDIATE_DIR}/libbluray_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))
+	${INTERMEDIATE_DIR}/libbluray_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/shaderc_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 
 	@echo "\033[32mRULE\033[0m $@"
 
@@ -900,7 +865,7 @@ ${INTERMEDIATE_DIR}/mpv_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -952,7 +917,7 @@ ${INTERMEDIATE_DIR}/libogg_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -963,7 +928,7 @@ ${INTERMEDIATE_DIR}/libogg_%: \
 		VARIANT=${TARGET_VARIANT} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	rm -rf ${TARGET_TMP_DIR}
 
@@ -1003,7 +968,7 @@ ${INTERMEDIATE_DIR}/libvorbis_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -1014,7 +979,7 @@ ${INTERMEDIATE_DIR}/libvorbis_%: \
 		VARIANT=${TARGET_VARIANT} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 # libvpx_<os>-<arch>-<variant>
 ${INTERMEDIATE_DIR}/libvpx_%: \
@@ -1052,7 +1017,7 @@ ${INTERMEDIATE_DIR}/libvpx_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -1063,7 +1028,7 @@ ${INTERMEDIATE_DIR}/libvpx_%: \
 		VARIANT=${TARGET_VARIANT} \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 
 # libx264_<os>-<arch>-<variant>
@@ -1101,7 +1066,7 @@ ${INTERMEDIATE_DIR}/libx264_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -1139,7 +1104,7 @@ ${INTERMEDIATE_DIR}/libx265_%: \
 		PATH=${SANDBOX_PATH} \
 		ARCHIVE_FILE=${ARCHIVE_FILE} \
 		TARGET_DIR=${TARGET_SRC_DIR} \
-		sh ${PROJECT_DIR}/scripts/extract/build.sh
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
 
 	env -i \
 		PATH=${SANDBOX_PATH} \
@@ -1204,7 +1169,7 @@ ${INTERMEDIATE_DIR}/libs-arch_%: \
 		VARIANT=${TARGET_VARIANT} \
 		DEPS="${TARGET_ABS_DEPS}" \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
 
@@ -1245,7 +1210,7 @@ ${INTERMEDIATE_DIR}/libs_%: \
 		VARIANT=${TARGET_VARIANT} \
 		DEPS="${TARGET_ABS_DEPS}" \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
 	rm -rf ${TARGET_TMP_DIR}
@@ -1282,7 +1247,7 @@ ${INTERMEDIATE_DIR}/frameworks_%: \
 		VARIANT=${TARGET_VARIANT} \
 		DEPS="${TARGET_ABS_DEPS}" \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
 	rm -rf ${TARGET_TMP_DIR}
@@ -1324,7 +1289,7 @@ ${INTERMEDIATE_DIR}/xcframeworks_%: \
 		VARIANT=${TARGET_VARIANT} \
 		DEPS="${TARGET_ABS_DEPS}" \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_DIR} ${TARGET_DIR}
 	rm -rf ${TARGET_TMP_DIR}
@@ -1355,7 +1320,7 @@ ${OUTPUT_DIR}/libmpv-%.tar.gz: \
 		SRC_DIR=${TARGET_SRC_DIR} \
 		DEPS="${TARGET_ABS_DEPS}" \
 		OUTPUT_FILE=${TARGET_OUTPUT_FILE} \
-		sh ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 	mv ${TARGET_OUTPUT_FILE} ${TARGET_FILE}
 	rm -rf ${TARGET_TMP_DIR}

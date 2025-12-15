@@ -12,7 +12,7 @@ meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}" \
     -Dbitdepths="['8', '16']" \
-    -Denable_asm=false \
+    -Denable_asm=true \
     -Denable_tools=false \
     -Denable_examples=false \
     -Denable_tests=false \

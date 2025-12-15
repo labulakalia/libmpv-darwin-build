@@ -39,11 +39,10 @@ meson setup build \
     -Ddemos=false \
     -Dprefer_static=true \
     -Dtests=false \
-    -Dvulkan=enabled \
     -Ddebug=false \
-    -Dglslang=enabled \
     -Ddefault_library=static \
-    -Dshaderc=enabled
+    -Dshaderc=enabled \
+    -Dvulkan=disabled
 
 meson compile -C build
 meson install -C build
