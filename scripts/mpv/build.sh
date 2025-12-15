@@ -175,22 +175,18 @@ IOS_OPTIONS=(
 )
 
 LINUX_OPTIONS=(
-    -Ddrm=enabled
     -Degl=enabled # 
     -Degl-wayland=enabled
     -Degl-x11=enabled
-    -Degl-drm=enabled
     -Dwayland=enabled
     -Dx11=enabled
     -Degl-wayland=enabled
     -Dvaapi=enabled
     -Dvaapi-x11=enabled
     -Dvaapi-wayland=enabled
-    -Dvaapi-drm=enabled
     -Dvdpau=enabled
     -Dvdpau-gl-x11=enabled
     # -Dvulkan=enabled // not work for render_api
-    -Ddmabuf-wayland=enabled
     
     # audio
     -Dalsa=enabled
