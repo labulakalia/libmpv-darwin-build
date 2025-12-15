@@ -176,8 +176,10 @@ IOS_OPTIONS=(
 
 LINUX_OPTIONS=(
     -Ddrm=enabled
-    -Dgl=enabled
     -Degl=enabled # 
+    -Degl-wayland=enabled
+    -Degl-x11=enabled
+    -Degl-drm=enabled
     -Dwayland=enabled
     -Dx11=enabled
     -Degl-wayland=enabled
@@ -186,6 +188,7 @@ LINUX_OPTIONS=(
     -Dvaapi-wayland=enabled
     -Dvaapi-drm=enabled
     -Dvdpau=enabled
+    -Dvdpau-gl-x11=enabled
     # -Dvulkan=enabled // not work for render_api
     -Ddmabuf-wayland=enabled
     

@@ -112,7 +112,7 @@ jobs:
         run:
           apt install -y ninja-build nasm make cmake llvm clang libfontconfig-dev libfontconfig-dev libdrm-dev libxv-dev \
           libva-dev libvdpau-dev libasound2-dev libpipewire-0.3-dev libpulse-dev  \
-          libdisplay-info-dev libgbm-dev wayland-protocols libxkbcommon-dev libxpresent-dev libegl-dev libegl-dev libdrm-dev python3-pip libxss-dev  \
+          libdisplay-info-dev libgbm-dev wayland-protocols libxkbcommon-dev libxpresent-dev libegl-dev libegl-dev libdrm-dev python3-pip libxss-dev libva-dev  \
           pip3 install meson==1.9.1 --break-system-packages
 
       - name: Determine version
