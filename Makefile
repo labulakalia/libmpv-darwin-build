@@ -27,7 +27,6 @@
 .SECONDARY:
 
 # Create any number of jobs, but keep the load average below ncpu
-MAKEFLAGS += "-j -l $(shell nproc) "
 
 # TODO 
 HOST_OS = linux

@@ -109,3 +109,7 @@ libarchive:
   version: 3.8.4
   url: https://github.com/libarchive/libarchive/releases/download/v3.8.4/libarchive-3.8.4.tar.gz
   sha256: b2c75b132a0ec43274d2867221befcb425034cd038e465afbfad09911abb1abb
+shaderc:
+  version: 202505
+  url: https://github.com/google/shaderc/archive/refs/tags/v2025.5.tar.gz
+  sha256: fca5041b1fdea6daba167b63e04e55e5059fab40828342126169336643445447
