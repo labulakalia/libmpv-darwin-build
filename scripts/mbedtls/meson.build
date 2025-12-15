@@ -18,6 +18,9 @@ options.add_cmake_defines({
     'USE_SHARED_MBEDTLS_LIBRARY': false,
     'LINK_WITH_PTHREAD': true,
     'CMAKE_BUILD_TYPE': 'Release',
+    'CMAKE_POLICY_DEFAULT_CMP0156': 'NEW',
+    'CMAKE_POLICY_DEFAULT_CMP0179': 'NEW',
+    'CMAKE_POLICY_DEFAULT_CMP0068': 'NEW'
 })
 if host_machine.system() == 'darwin'
   options.add_cmake_defines({

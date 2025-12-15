@@ -9,11 +9,6 @@ if [[ -d ${OUTPUT_DIR} ]];then
     exit 0
 fi
 
-if [[ -d ${OUTPUT_DIR} ]];then
-    echo "already exists,skip"
-    exit 0
-fi
-
 # cross build with meson
 cp ${PROJECT_DIR}/scripts/mbedtls/meson.build ./meson.build
 meson setup build_cross \
@@ -31,14 +26,13 @@ cp -R subprojects/mbedtls/include/mbedtls/*.h dist/include/mbedtls
 cp -R subprojects/mbedtls/include/psa/*.h dist/include/psa
 ## install libs
 
-find . -type f -name '*.dylib' -exec sh -c 'mv {} dist/lib' \;
 find . -type f -name '*.a' -exec sh -c 'mv {} dist/lib' \;
 
 
 ## install pkgconfig file
 cp ${PROJECT_DIR}/scripts/mbedtls/mbedtls.pc.in dist/lib/pkgconfig/mbedtls.pc
 
-sed -i 's|${PREFIX}|'${OUTPUT_DIR}'|g' dist/lib/pkgconfig/mbedtls.pc
+sed 's/${PREFIX}/'${OUTPUT_DIR}'/g' dist/lib/pkgconfig/mbedtls.pc > dist/lib/pkgconfig/mbedtls.pc.bak && mv dist/lib/pkgconfig/mbedtls.pc.bak dist/lib/pkgconfig/mbedtls.pc
 
 # manual install
 mkdir -p "${OUTPUT_DIR}"

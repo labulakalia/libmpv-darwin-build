@@ -13,11 +13,14 @@ env
 
 
 cp ${PROJECT_DIR}/scripts/ffmpeg/meson.* .
+
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}" \
     -Dvariant=${VARIANT} \
     -Dflavor=${FLAVOR} -Dc_link_args='-lxml2' \
+    -Dc_args="-I/opt/homebrew/opt/gettext/include" \
+    -Dc_link_args="-L/opt/homebrew/opt/gettext/lib" \
     -Ddebug=false |
     tee configure.log
 

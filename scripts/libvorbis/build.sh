@@ -13,7 +13,8 @@ patch -p1 <${PROJECT_DIR}/patches/ltmain-target-passthrough.patch
 
 echo $SRC_DIR
 # Fix building on modern macOS
-sed -i 's/\-force_cpusubtype_ALL//g' configure
+sed  's/\-force_cpusubtype_ALL//g' configure > configure.bak
+mv configure.bak configure
 
 cp ${PROJECT_DIR}/scripts/libvorbis/meson.* .
 

@@ -175,22 +175,18 @@ IOS_OPTIONS=(
 )
 
 LINUX_OPTIONS=(
-    -Ddrm=enabled
     -Degl=enabled # 
     -Degl-wayland=enabled
     -Degl-x11=enabled
-    -Degl-drm=enabled
     -Dwayland=enabled
     -Dx11=enabled
     -Degl-wayland=enabled
     -Dvaapi=enabled
     -Dvaapi-x11=enabled
     -Dvaapi-wayland=enabled
-    -Dvaapi-drm=enabled
     -Dvdpau=enabled
     -Dvdpau-gl-x11=enabled
     # -Dvulkan=enabled // not work for render_api
-    -Ddmabuf-wayland=enabled
     
     # audio
     -Dalsa=enabled
@@ -215,7 +211,8 @@ elif [ "${OS}" == "linux" ]; then
     OPTIONS+=("${LINUX_OPTIONS[@]}")
 fi
 
-export PKG_CONFIG_PATH=/workspaces/libmpv-darwin-build/build/intermediate/shaderc_linux-amd64/lib/pkgconfig:$PKG_CONFIG_PATH
+
+
 meson setup build \
     --cross-file ${PROJECT_DIR}/cross-files/${OS}-${ARCH}.ini \
     --prefix="${OUTPUT_DIR}" -Doptimization=s -Ddebug=false \

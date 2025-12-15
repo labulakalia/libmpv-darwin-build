@@ -70,16 +70,19 @@ common_options = [
 
 macos_option = [
     '--enable-videotoolbox',
+    '--enable-audiotoolbox',
     '--enable-vda',
 ]
 
-macos_option = [
+iso_option = [
     '--enable-videotoolbox',
+    '--enable-audiotoolbox',
     '--disable-avdevice'
 ]
 
 linux_option = [
     '--enable-libpulse',
+    '--enable-alsa',
     
     '--enable-vaapi',
     '--enable-vdpau',
@@ -93,7 +96,16 @@ options = disable_all_options
 
 # common
 options += common_options
-options += linux_option
+
+if host_machine.system() == 'darwin'
+    options += macos_option
+endif
+
+options += common_options
+if host_machine.system() == 'linux'
+    options += linux_option
+endif
+
 
 p = mod.add_project('configure',
     configure_options : options,

@@ -27,7 +27,6 @@
 .SECONDARY:
 
 # Create any number of jobs, but keep the load average below ncpu
-MAKEFLAGS += "-j -l $(shell nproc) "
 
 # TODO 
 HOST_OS = linux
@@ -48,7 +47,7 @@ OUTPUT_DIR = ${BUILD_DIR}/output
 DOWNLOADS_DIR = ${INTERMEDIATE_DIR}/downloads
 LINKS_DIR = ${INTERMEDIATE_DIR}/links
 PKGCONFIG_DIR = ""
-SANDBOX_PATH = ${PATH}
+SANDBOX_PATH = "${PATH}"
 
 # chars
 NULL =
