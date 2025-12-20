@@ -3,9 +3,9 @@ dav1d:
   url: https://github.com/videolan/dav1d/archive/refs/tags/1.4.3.tar.gz
   sha256: 88a023e58d955e0886faf49c72940e0e90914a948a8e60c1326ce3e09e7a6099
 ffmpeg:
-  version: 7.0.2
-  url: https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n7.0.2.tar.gz
-  sha256: 5eb46d18d664a0ccadf7b0adee03bd3b7fa72893d667f36c69e202a807e6d533
+  version: 7.1.3
+  url: https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n7.1.3.tar.gz
+  sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 freetype:
   version: 2.13.2
   url: https://downloads.sourceforge.net/project/freetype/freetype2/2.13.2/freetype-2.13.2.tar.xz
