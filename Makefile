@@ -260,6 +260,7 @@ ${INTERMEDIATE_DIR}/ffmpeg_%: \
 	${INTERMEDIATE_DIR}/libdvdread_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libdvdnav_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/mbedtls_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
+	${INTERMEDIATE_DIR}/libjxl_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libx265_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*)) \
 	${INTERMEDIATE_DIR}/libx264_$$(word 1,$$(subst -, ,$$*))-$$(word 2,$$(subst -, ,$$*))
 
@@ -777,6 +778,42 @@ ${INTERMEDIATE_DIR}/uchardet_%: \
 		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
 		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
+
+# libjxl_<os>-<arch>
+${INTERMEDIATE_DIR}/libjxl_%: \
+	${DOWNLOADS_DIR} 
+
+	@echo "\033[32mRULE\033[0m $@"
+
+	$(eval TARGET_DIR=$@)
+	$(eval TARGET_PATTERN=$*)
+	$(eval TARGET_NAME=$(notdir ${TARGET_DIR}))
+	$(eval TARGET_PKGNAME=$(firstword $(subst _${TARGET_PATTERN}, ,${TARGET_NAME})))
+	$(eval TARGET_TMP_DIR=${TMP_DIR}/${TARGET_NAME})
+	$(eval TARGET_SRC_DIR=${TARGET_TMP_DIR}/src/${TARGET_PKGNAME})
+	$(eval TARGET_OUTPUT_DIR=${PROJECT_DIR}/${TARGET_DIR})
+
+	$(eval ARCHIVE_FILE=$(firstword $(wildcard ${DOWNLOADS_DIR}/${TARGET_PKGNAME}-*.tar.*)))
+
+	$(eval TARGET_OS=$(word 1, $(subst -, ,${TARGET_PATTERN})))
+	$(eval TARGET_ARCH=$(word 2, $(subst -, ,${TARGET_PATTERN})))
+
+	rm -rf ${TARGET_SRC_DIR}
+	mkdir -p ${TARGET_SRC_DIR}
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		ARCHIVE_FILE=${ARCHIVE_FILE} \
+		TARGET_DIR=${TARGET_SRC_DIR}/subprojects/${TARGET_PKGNAME} \
+		bash ${PROJECT_DIR}/scripts/extract/build.sh
+
+	env -i \
+		PATH=${SANDBOX_PATH} \
+		PROJECT_DIR=${PROJECT_DIR} \
+		OS=${TARGET_OS} \
+		ARCH=${TARGET_ARCH} \
+		SRC_DIR=${TARGET_SRC_DIR} \
+		OUTPUT_DIR=${TARGET_OUTPUT_DIR} \
+		bash ${PROJECT_DIR}/scripts/${TARGET_PKGNAME}/build.sh
 
 # vulkan_<os>-<arch>
 ${INTERMEDIATE_DIR}/vulkan_%: \

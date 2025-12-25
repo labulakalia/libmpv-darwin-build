@@ -20,7 +20,7 @@ meson setup build \
     -Dvariant=${VARIANT} \
     -Dflavor=${FLAVOR} -Dc_link_args='-lxml2' \
     -Dc_args="-I/opt/homebrew/opt/gettext/include" \
-    -Dc_link_args="-L/opt/homebrew/opt/gettext/lib" \
+    -Dc_link_args="-L/opt/homebrew/opt/gettext/lib -lpthread -lstdc++"  \
     -Ddebug=false |
     tee configure.log
 
