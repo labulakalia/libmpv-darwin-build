@@ -133,8 +133,8 @@ COMMON_OPTIONS=(
    
     -Dgpl=true
     -Dlibarchive=enabled
-    -Dlibbluray=enabled
-    -Ddvdnav=enabled
+    -Dlibbluray=disabled
+    -Ddvdnav=disabled
     # -Dvulkan=enabled # only for linux windows android darwin use
     # only window need shaderc https://github.com/mpv-player/mpv/commit/60a31a8a284e539043c47a33ff90f3d55aade6a8
     # -Dshaderc=enabled 
